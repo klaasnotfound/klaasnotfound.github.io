@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Location on Android&#58; Stop Mocking Me! – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta name="description" content="People, it’s 2016. Writing a location-aware app in Android should be simple. Unfortunately, it’s not. If you want to 
+support a decent range of versions (let’s say API level 14 and newer, 97% of Android users) you’re faced with a number
+of issues. I struggled with these for several days and thought I would share my lessons learned - and the code that came
+out of it.
+If you just want to cut to the chase, click here.
+
+" />
+    <meta property="og:description" content="People, it’s 2016. Writing a location-aware app in Android should be simple. Unfortunately, it’s not. If you want to 
+support a decent range of versions (let’s say API level 14 and newer, 97% of Android users) you’re faced with a number
+of issues. I struggled with these for several days and thought I would share my lessons learned - and the code that came
+out of it.
+If you just want to cut to the chase, click here.
+
+" />
+    
+    <meta name="author" content="KlaasNotFound" />
+    
+    <meta property="og:title" content="Location on Android&#58; Stop Mocking Me!" />
+    <meta property="twitter:title" content="Location on Android&#58; Stop Mocking Me!" />
+    
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <h2>KNF</h2>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=Location+on+Android%26%2358%3B+Stop+Mocking+Me%21&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F05%2F27%2Flocation-on-android-stop-mocking-me%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F05%2F27%2Flocation-on-android-stop-mocking-me%2F&title=Location+on+Android%26%2358%3B+Stop+Mocking+Me%21&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F05%2F27%2Flocation-on-android-stop-mocking-me%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F05%2F27%2Flocation-on-android-stop-mocking-me%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=Location+on+Android%26%2358%3B+Stop+Mocking+Me%21&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F05%2F27%2Flocation-on-android-stop-mocking-me%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F05%2F27%2Flocation-on-android-stop-mocking-me%2F&title=Location+on+Android%26%2358%3B+Stop+Mocking+Me%21&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F05%2F27%2Flocation-on-android-stop-mocking-me%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F05%2F27%2Flocation-on-android-stop-mocking-me%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">27 May 2016</div>
+            <h2>Location on Android&#58; Stop Mocking Me!</h2>
+            
+            <blockquote><b>tl;dr</b> Scroll to the bottom and grab a sweet Java class that solves all issues of setting up location services and detecting mock locations across all relevant Android versions.</blockquote>
+            
+
+            <p>People, it’s 2016. Writing a location-aware app in Android should be simple. Unfortunately, it’s not. If you want to 
+support a decent range of versions (let’s say API level 14 and newer, 97% of Android users) you’re faced with a number
+of issues. I struggled with these for several days and thought I would share my lessons learned - and the code that came
+out of it.
+If you just want to cut to the chase, <a href="#the-takeaway">click here</a>.</p>
+
+<p><img src="/assets/content/stop_mocking_me_01.jpg" alt="" class="ui big centered image" />
+<em>Stop mocking me.</em></p>
+
+<p>A particular requirement in my case was that I needed the user’s <em>real</em> location. In other words I wanted to detect
+and reliably reject fake locations. As you might know, Android officially allows the installation of so-called ‘mock 
+location’ apps. Most of them are called something like ‘Fake GPS’ and broadcast a location chosen by the user (for 
+example at the north pole) to the system, just like a regular GPS provider. Most apps silently accept mock locations 
+and in fact teleporting yourself to the ends of the earth can be incredibly handy when testing app features or 
+previewing your next vacation destination. However, it can also be a real pain, especially when your app depends on 
+the authenticity of location information, e.g. for check-ins, location-based rewards etc.</p>
+
+<h3 id="the-objective">The Objective</h3>
+
+<p>In general, I wanted to do four things whenever my app was started/resumed:</p>
+
+<ol>
+  <li>Request location updates with a certain accuracy and at fixed update intervals.</li>
+  <li>If necessary (on newer Android systems), ask the user to grant permission to retrieve location info.</li>
+  <li>If disabled, ask the user to enable location providers, ideally without leaving the app.</li>
+  <li>Detect and reject mock locations and ask the user to switch off mock location apps.</li>
+</ol>
+
+<p>Getting the location permission is pretty straightforward, as there is a 
+<a href="http://developer.android.com/training/permissions/requesting.html">nice tutorial</a>
+on how to request permissions at run time on systems with API level ≥ 23 (Marshmallow and above).
+Getting updates from the location providers can be a bit tricky, because there are two ways to do it. You can 
+subscribe directly to the different available location providers (GPS, Network, Bluetooth) via the <strong>LocationManager</strong>
+on the device. For a long time, this used to be the main method of obtaining location info and you had to basically 
+write your own logic to fuse the location info from different providers.</p>
+
+<p><img src="/assets/content/stop_mocking_me_02.png" alt="" class="ui large centered image" />
+<em>Location Settings on Android Marshmallow</em></p>
+
+<p>Not so long ago, Google introduced the 
+<a href="https://developers.google.com/android/reference/com/google/android/gms/location/package-summary">Play Services Location API</a>
+as an alternative that simplifies a lot of the manual effort and abstracts a number of issues. It is actually quite 
+nice and - unless you need really fine-grained control of the location sources - it’s definitely the way to go.
+The utility class I’m introducing below is built on top of the Google Play Services API. You can read Google’s intro
+<a href="http://developer.android.com/training/location/index.html">‘Making Your App Location-Aware’</a>
+if you want to learn more about it.</p>
+
+<h3 id="the-recipe">The Recipe</h3>
+
+<p>The following diagram shows the exact order of steps that I have found necessary to reliably obtain location updates 
+on the aforementioned API levels.</p>
+
+<p><img src="/assets/content/stop_mocking_me_03.png" alt="" class="ui fluid image" />
+<em>The 6 steps to location Nirvana.</em></p>
+
+<p>The orange boxes denote situations in which a user action is required. Let me walk you through the steps:</p>
+
+<ol>
+  <li>
+    <p><strong>Check Permission</strong>: On older Android versions, this step is irrelevant, as the user has to grant permission at 
+install time. Starting with Marshmallow, the permission mechanism became more refined (similar to the way it works on
+iOS). The user must now grant permission at run time and you must do a better job at explaining why your app needs 
+location permission. Depending on how obvious your app’s need for location information is, you could first show a 
+small explanation and then request the permission or directly request it. Either way, if the user declines, you 
+should show a more detailed explanation. Once permission is granted, you may proceed to step 2.</p>
+  </li>
+  <li><strong>Request Access</strong>: Here, we are asking the Google API to give us access to location information with a certain 
+accuracy / 
+<a href="https://developers.google.com/android/reference/com/google/android/gms/location/LocationRequest#constant-summary">priority</a>
+(choices are <em>HIGH</em>, <em>BALANCED</em>, <em>LOW</em>, <em>NO_POWER</em>) and update frequency. The API automatically decides which 
+location providers are necessary to meet your requirements. For example, if you need high accuracy, it is likely that
+GPS will be switched on, while for balanced or low accuracy it might be sufficient to just use network location 
+(WiFi and cell tower).
+Requesting access can result in three outcomes:
+    <ul>
+      <li><em>Unavailable</em> means that for some reason, it is and won’t be possible to change the location settings with the 
+ in-app dialog to meet your requirements. I decided, that the most reasonable step in this case is to direct the 
+ user to the system location settings so she/he can figure out what’s going on.</li>
+      <li><em>Resolution</em> means that some providers are currently switched off, but it is possible to switch them from an 
+ in-app dialog. This is where you want to interact with the user to possibly explain the situation and then ask 
+ her/him to  enable the necessary providers.</li>
+      <li><em>Success</em> means all the necessary providers are enabled and you may proceed to step 3.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Request Updates</strong>: Having been granted access, we now subscribe to periodic updates in this step. Nothing
+should go wrong here (unless there are connectivity issues).</p>
+  </li>
+  <li>
+    <p><strong>Check Availability</strong>: The Google API offers a simple check to determine if location info is available. This will
+include the best “last known position”, so it’s a good idea to check availability up front, even if your GPS is still
+searching for a fix. If no location info is available after the Google API reports providers were switched on and 
+updates were successfully requested, it’s a good idea to manually check the location providers (via the 
+LocationManager). Oftentimes this is redundant to the Google API check, however, I saw some cases on older Android 
+phones / distros where this fallback was actually necessary.</p>
+  </li>
+  <li>
+    <p><strong>Check for Mock Locations</strong>: Once we acquire a new location reading, this step aims to determine whether the info
+is real or fake. Read the following section for more info on how this is done.</p>
+  </li>
+  <li>We’re <strong>good to go</strong> and should be receiving location updates.</li>
+</ol>
+
+<p><a id="the-disappointment"></a></p>
+
+<h3 id="the-disappointment">The Disappointment</h3>
+
+<p>Implementing steps 1-6 is mostly busywork. However, step 5 - detecting mock locations - can trip you up pretty bad. 
+On older Android systems (&lt; API level 18) mock locations are detected via Android’s 
+<a href="https://developer.android.com/reference/android/provider/Settings.Secure.html#ALLOW_MOCK_LOCATION"><strong>Settings.Secure</strong></a>
+flag. This works reliably and will cause your app to generally reject <em>any kind of location</em> until mock locations are 
+disabled in the system settings.</p>
+
+<p>The trouble starts on systems with API level 18 and up: The new flag 
+<a href="https://developer.android.com/reference/android/location/Location
+.html#isFromMockProvider%28%29"><strong>Location.isFromMockProvider()</strong></a>
+is supposed to flag mock locations on a <em>per-location</em> basis. In general this is a good idea, as it provides more 
+fine-grained control and could even be used to simultaneously process location info from fake and real providers.</p>
+
+<p><img src="/assets/content/stop_mocking_me_04.png" alt="" class="ui big centered image" />
+<em>Let’s go somewhere warm.</em></p>
+
+<p>So let’s beam ourselves to Brazil for a moment and see what
+<a href="https://developer.android.com/reference/android/location/Location.html#toString%28%29"><strong>Location.toString()</strong></a>
+looks like on the console for every new location we receive.</p>
+
+<p><img src="/assets/content/stop_mocking_me_05.png" alt="" class="ui fluid image" />
+<em>You’re kidding me.</em></p>
+
+<p>So apparently the Brazil locations from our Fake GPS provider get properly flagged as mock locations. Except for 
+those that do not. I had a major incident of <em>Schnappatmung</em> (you may look that up in a German dictionary).</p>
+
+<div class="ui center aligned grid mb20">
+<blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr">I hate APIs that don&#39;t work as advertised. <a href="https://twitter.com/hashtag/android?src=hash">#android</a>&#39;s &#39;isFromMockProvider()&#39; works great. Approx. 70% of the time 💣😡. <a href="https://twitter.com/hashtag/location?src=hash">#location</a> <a href="https://twitter.com/hashtag/frustration?src=hash">#frustration</a></p>&mdash; Klaas (@klaasnotfound) <a href="https://twitter.com/klaasnotfound/status/728969641889017856">7. Mai 2016</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script> 
+</div>
+<p><br /></p>
+
+<p>It can be more or less frequent, but eventually you will see it happen: If you switch on a fake location provider, 
+every now and then a fake location will arrive that is <em>not labeled as a mock</em>. Obviously, this is detrimental if your
+application is relying on <strong>.isFromMockProvider()</strong> to reject fake locations. One such false negative is enough to 
+screw up your use case.</p>
+
+<p>It’s funny that the culprit mock location has a much poorer accuracy than the other location readings. I’m pretty 
+sure the fake GPS provider is always sending locations with the same accuracy, which leads me to believe that the 
+incorrectly labeled location is the result of some erroneous fusion logic inside Google’s API.</p>
+
+<h3 id="the-remedy">The Remedy</h3>
+
+<p>Since <em>most</em> location readings are correctly labeled, it’s not too difficult to identify and reject the false
+negatives. I chose the following strategy:</p>
+
+<ul>
+  <li>Remember the most recent location labeled as a mock</li>
+  <li>If a new “non-mock” reading is within 1km of the last mock, reject it.</li>
+  <li>Only clear the last mock location after 20 consecutive “non-mock” readings.</li>
+</ul>
+
+<p>This simple approach proved to work very well in practice. Theoretically, if the very first reading was a false 
+negative, this logic would still be fooled. However, given my assumption that the reading stems from some API fusion 
+logic, such a reading would only ever occur <em>after</em> a couple of regular (mock) readings. Here’s the rejection 
+strategy in action:</p>
+
+<p><img src="/assets/content/stop_mocking_me_06.png" alt="" class="ui fluid image" />
+<em>That feels better…</em></p>
+
+<p><a id="the-takeaway"></a></p>
+
+<h3 id="the-takeaway">The Takeaway</h3>
+
+<p>No matter whether you have valiantly plowed through the entire blog post or simply skipped to this section - you
+have come to the right place. Let me introduce you to … the <strong>LocationAssistant</strong>. He’s your knight in shining armor
+and your new best buddy.</p>
+
+<p>I have tried to abstract and hide away all the gory, boring and irrelevant details of setting up and subscribing to 
+location updates. The <strong>LocationAssistant</strong> provides a 
+<a href="https://github.com/klaasnotfound/LocationAssistant#locationassistantlistener">Listener</a> 
+interface that contains relevant events, upon some which you may need to or want to interact with the user. It also 
+provides 
+<a href="https://github.com/klaasnotfound/LocationAssistant#locationassistant-1">a few methods</a>
+that let you switch stuff on and off.</p>
+
+<p>If you want, you can use the <strong>LocationAssistant</strong> to reject mock locations, but you don’t have to. I believe you 
+will find it useful either way. Now head on over to GitHub and get it. If you like it, please star it, fork it or 
+contribute. If you spot errors or have enhancements feel free to submit a pull request.</p>
+
+<blockquote>
+  <p><a href="https://github.com/klaasnotfound/LocationAssistant#locationassistant">Get the <strong>LocationAssistant</strong> on GitHub</a></p>
+</blockquote>
+
+<p>Thanks for joining me on today’s tangent and please don’t be shy to comment below.</p>
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2016 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2016/05/27/location-on-android-stop-mocking-me/',
+        'title': 'Location on Android&#58; Stop Mocking Me!'
+    });
+</script>
+
+</body>

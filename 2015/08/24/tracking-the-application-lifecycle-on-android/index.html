@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Tracking the Application Lifecycle on Android – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta name="description" content="So you have been developing that fancy Android app for a while now. It has grown and contains a sizable number of
+Activities. Depending on what your app actually does, you have also had the need to manage some application state or
+even some functional modules independently of those Activities. This is most likely where you started to write a 
+MyApplication class, subclassed from Android’s
+Application.
+
+" />
+    <meta property="og:description" content="So you have been developing that fancy Android app for a while now. It has grown and contains a sizable number of
+Activities. Depending on what your app actually does, you have also had the need to manage some application state or
+even some functional modules independently of those Activities. This is most likely where you started to write a 
+MyApplication class, subclassed from Android’s
+Application.
+
+" />
+    
+    <meta name="author" content="KlaasNotFound" />
+    
+    <meta property="og:title" content="Tracking the Application Lifecycle on Android" />
+    <meta property="twitter:title" content="Tracking the Application Lifecycle on Android" />
+    
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <h2>KNF</h2>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=Tracking+the+Application+Lifecycle+on+Android&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2015%2F08%2F24%2Ftracking-the-application-lifecycle-on-android%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2015%2F08%2F24%2Ftracking-the-application-lifecycle-on-android%2F&title=Tracking+the+Application+Lifecycle+on+Android&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2015%2F08%2F24%2Ftracking-the-application-lifecycle-on-android%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2015%2F08%2F24%2Ftracking-the-application-lifecycle-on-android%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=Tracking+the+Application+Lifecycle+on+Android&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2015%2F08%2F24%2Ftracking-the-application-lifecycle-on-android%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2015%2F08%2F24%2Ftracking-the-application-lifecycle-on-android%2F&title=Tracking+the+Application+Lifecycle+on+Android&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2015%2F08%2F24%2Ftracking-the-application-lifecycle-on-android%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2015%2F08%2F24%2Ftracking-the-application-lifecycle-on-android%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">24 August 2015</div>
+            <h2>Tracking the Application Lifecycle on Android</h2>
+            
+            <blockquote><b>tl;dr</b> Below, you can grab a simple Java class that robustly tracks when your overall Android application is in the fore- and background.</blockquote>
+            
+
+            <p>So you have been developing that fancy Android app for a while now. It has grown and contains a sizable number of
+Activities. Depending on what your app actually does, you have also had the need to manage some application state or
+even some functional modules independently of those Activities. This is most likely where you started to write a 
+<strong>MyApplication</strong> class, subclassed from Android’s
+<a href="http://developer.android.com/reference/android/app/Application.html"><strong>Application</strong></a>.</p>
+
+<p><img src="/assets/content/activity_lifecycle_01.png" alt="" class="ui big centered image" /></p>
+
+<p>Things you might be doing in that central application class:</p>
+
+<ul>
+  <li>Initialize a crash reporter (such as Fabric/Crashlytics)</li>
+  <li>Initialize a dependency injection framework (such as Dagger)</li>
+  <li>Initialize an ad SDK or an analytics SDK</li>
+  <li>Set a thread policy for your app</li>
+  <li>Open/close a disk cache</li>
+  <li>Start/stop a location listener</li>
+  <li>Register/unregister an application-wide event bus</li>
+</ul>
+
+<p>While initialization tasks can easily be performed in the <strong>.onCreate()</strong> method of your application class, the 
+latter tasks require you to call certain methods twice - once when the application becomes awake, and once when it 
+goes to sleep. Well, easy enough - just override the <strong>.onStart()</strong> and <strong>.onStop()</strong> methods of the Android 
+<strong>Application</strong> and you’re done, right?</p>
+
+<p>Take a card, my friend:</p>
+
+<div class="ui center aligned grid">
+    <div class="row">
+        <div class="ui move reveal">
+            <div class="visible content">
+                <img src="/assets/content/activity_lifecycle_02.jpg" class="ui medium image" />
+            </div>
+            <div class="hidden content">
+                <img src="https://media.giphy.com/media/buCWzb2bZukG4/giphy.gif" class="ui medium image" />
+                <div class="ui bottom left attached label"><a href="http://giphy.com/gifs/weezer-buCWzb2bZukG4">via GIPHY</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>I’m sorry: <em>Go directly to Jail. Do not pass Go. Do not collect $200.</em> While you and I might have a pretty
+clear idea of what it means for an application to be started or stopped, the methods <strong>.onStart()</strong> and <strong>.onStop()</strong>, 
+which we know and take for granted with Activities, do not exist for Android’s <strong>Application</strong>.</p>
+
+<p>The Android <strong>Application</strong> class basically only provides methods for events that affect the application as a whole, 
+e.g. a change of the system locale or a low memory warning. 
+To track the application lifecycle, we have to jump through a few hoops. I’ll show you two ways to do it.</p>
+
+<h3 id="the-ugly-way-custom-activities">The Ugly Way: Custom Activities</h3>
+
+<p>Of course we could use the <strong>.onPause()</strong> and <strong>.onResume()</strong> methods of each Activity to track the overall 
+application status. This would go something like:</p>
+
+<div class="highlight"><pre><code class="language-java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numStarted</span><span class="o">;</span>
+    
+    <span class="o">...</span>
+    
+    <span class="kd">public</span> <span class="nf">activityStarted</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">numStarted</span><span class="o">++;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nf">activityStopped</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">numStarted</span><span class="o">--;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SomeActivity</span> <span class="o">{</span>
+
+    <span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onStart</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onStart</span><span class="o">();</span>
+        <span class="o">((</span><span class="n">MyApplication</span><span class="o">)</span> <span class="n">getApplication</span><span class="o">()).</span><span class="na">activityStarted</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onStop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">((</span><span class="n">My</span> <span class="n">Application</span><span class="o">)</span> <span class="n">getApplication</span><span class="o">()).</span><span class="na">activityStopped</span><span class="o">();</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onStop</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>The parameter <strong>numStarted</strong> would provide us with the count of Activities that are currently active. As 
+long as this number is ≥ 1 (actually, it should never be <em>greater</em> than one), the application itself is active.
+Obviously, adding this code to every single activity in your project is ugly. So you would want to encapsulate 
+the above logic in a generic <strong>TrackingActivity</strong> and have each of your Activities extend that, like so:</p>
+
+<div class="highlight"><pre><code class="language-java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TrackingActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+
+    <span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onStart</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onStart</span><span class="o">();</span>
+        <span class="o">((</span><span class="n">MyApplication</span><span class="o">)</span> <span class="n">getApplication</span><span class="o">()).</span><span class="na">activityStarted</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onStop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">((</span><span class="n">My</span> <span class="n">Application</span><span class="o">)</span> <span class="n">getApplication</span><span class="o">()).</span><span class="na">activityStopped</span><span class="o">();</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onStop</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SomeActivity1</span> <span class="kd">extends</span> <span class="n">TrackingActivity</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SomeActivity2</span> <span class="kd">extends</span> <span class="n">TrackingActivity</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+<p>While this is slightly more elegant, you still have to modify each of your activities and introduce an extra 
+inheritance step. It turns out there is a better way.</p>
+
+<h3 id="the-elegant-way-activitylifecyclecallbacks">The Elegant Way: ActivityLifecycleCallbacks</h3>
+
+<p>If you’re willing and able to build your app for API level 14 and up, there is a much more elegant way to implement 
+the above logic. As a reminder: API level 14 means Android 4.0.3 - more than
+<a href="http://developer.android.com/about/dashboards/index.html">97% of Android users run this or a newer version</a>.
+Via the newly introduced 
+<a href="http://developer.android.com/reference/android/app/Application.ActivityLifecycleCallbacks.html">ActivityLifeCycleCallbacks</a>,
+the Application <em>does</em> have access to the lifecycle state of each activity.
+With these callbacks at hand, we can rewrite our example as follows:</p>
+
+<div class="highlight"><pre><code class="language-java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyApplication</span> <span class="kd">extends</span> <span class="n">Application</span>
+    <span class="kd">implements</span> <span class="n">Application</span><span class="o">.</span><span class="na">ActivityLifecycleCallbacks</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numStarted</span><span class="o">;</span>
+    
+    <span class="o">...</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="n">registerActivityLifecycleCallbacks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+        
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onActivityStarted</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">numStarted</span><span class="o">++;</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onActivityStopped</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">numStarted</span><span class="o">--;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>As promised, this variant is much cleaner, since we don’t have to modify a single Activity.</p>
+
+<h3 id="careful-with-resumepause">Careful with Resume/Pause</h3>
+
+<p>Note that in the above example, we have have only tracked the <strong>started/stopped</strong> state of our app’s Activities. For 
+most usecases this will be sufficient. However, as you may remember, there is also a <strong>resumed/paused</strong> state. To 
+recap, <a href="http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle">the difference is this</a>:</p>
+
+<ul>
+  <li>
+    <p>“Between <strong>onStart()</strong> and <strong>onStop()</strong> […] the user can see the activity on-screen, though it may 
+not be in the foreground and interacting with the user.”</p>
+  </li>
+  <li>
+    <p>“Between <strong>onResume()</strong> and <strong>onPause()</strong> […] the activity is in front of all other activities and 
+interacting with the user.”</p>
+  </li>
+</ul>
+
+<p>In other words, there are some lifecycle corner cases, in which your current Activity could be <strong>paused</strong> but not (yet) 
+<strong>stopped</strong>, i.e. the user will see it, but cannot interact with it. You might be tempted to detect this application 
+state by counting the number of resumed activities, like so:</p>
+
+<div class="highlight"><pre><code class="language-java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyApplication</span> <span class="kd">extends</span> <span class="n">Application</span>
+    <span class="kd">implements</span> <span class="n">Application</span><span class="o">.</span><span class="na">ActivityLifecycleCallbacks</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numResumed</span><span class="o">;</span>
+    
+    <span class="o">...</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="n">registerActivityLifecycleCallbacks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+        
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onActivityResumed</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">numResumed</span><span class="o">++;</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onActivityPaused</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// CAREFUL - NOT A GOOD IDEA!</span>
+        <span class="n">numResumed</span><span class="o">--;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Unfortunately, this is <em>not a good idea</em> because of 
+<a href="http://developer.android.com/guide/components/activities.html#CoordinatingActivities">the order of events in Activity transitions</a>.
+When we transition from <strong>Activity A</strong> to <strong>Activity B</strong>, the deterministic order of lifecycle events is:</p>
+
+<p><strong>Pause A</strong> → <strong>Create B</strong> → <strong>Start B</strong> → <strong>Resume B</strong> → <strong>Stop A</strong></p>
+
+<p>Because <strong>A</strong> is paused before <strong>B</strong> is resumed, your <strong>numResumed</strong> count would intermittently be 0. This would only
+be for a brief time, but long enough to trigger any application logic based on this count to think that your 
+application was briefly paused. You might attempt to debounce such transitions, however, such logic is bound to fail 
+when your application really does go to sleep.</p>
+
+<p>In a nutshell, if you don’t consider your application asleep during Activity transitions (I certainly don’t) you have
+to accept that <strong>onPause()</strong> and <strong>onStop()</strong> can only be reliably detected at the same time (namely, when the last 
+Activity is stopped).</p>
+
+<h3 id="the-takeaway">The Takeaway</h3>
+
+<p>If you read all the mambojambo above - congratulations! If you didn’t - no worries. I have put the essential logic in
+a small class called <strong>ActivityLifecycleHandler</strong>. It provides the following simple interface:</p>
+
+<div class="highlight"><pre><code class="language-java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActivityLifecycleHandler</span>
+    <span class="kd">implements</span> <span class="n">Application</span><span class="o">.</span><span class="na">ActivityLifecycleCallbacks</span> <span class="o">{</span>
+
+    <span class="cm">/** Informs the listener about application lifecycle events. */</span>
+    <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">LifecycleListener</span> <span class="o">{</span>
+        <span class="cm">/** Called right before the application is stopped. */</span>
+        <span class="kt">void</span> <span class="nf">onApplicationStopped</span><span class="o">();</span>
+
+        <span class="cm">/** Called right after the application has been started. */</span>
+        <span class="kt">void</span> <span class="nf">onApplicationStarted</span><span class="o">();</span>
+
+        <span class="cm">/** Called when the application has gone to the background. */</span>
+        <span class="kt">void</span> <span class="nf">onApplicationPaused</span><span class="o">();</span>
+
+        <span class="cm">/** Called right after the application has come to the foreground. */</span>
+        <span class="kt">void</span> <span class="nf">onApplicationResumed</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="o">...</span>
+<span class="o">}</span></code></pre></div>
+
+<p>The callback methods should be self-explanatory and do what we initially set out to do: They alert you when your 
+application becomes awake or goes to sleep. Use the class like this:</p>
+
+<div class="highlight"><pre><code class="language-java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyApplication</span> <span class="kd">extends</span> <span class="n">Application</span>
+    <span class="n">implement</span> <span class="n">ActivityLifecycleHandler</span><span class="o">.</span><span class="na">LifecycleListener</span> <span class="o">{</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="c1">// Register a lifecycle handler to track the foreground/background state</span>
+        <span class="n">registerActivityLifecycleCallbacks</span><span class="o">(</span><span class="k">new</span> <span class="nf">ActivityLifecycleHandler</span><span class="o">(</span><span class="k">this</span><span class="o">));</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onApplicationStopped</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Do something</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onApplicationStarted</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Do something</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onApplicationPaused</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Do something</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onApplicationResumed</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Do something</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>That’s it. As always, you can</p>
+
+<blockquote>
+  <p><a href="https://gist.github.com/klaasnotfound/e14adefddaf72b941ef4e4245edca7e4">Grab the code here</a></p>
+</blockquote>
+
+<p>and I appreciate your feedback and comments below.</p>
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2016 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2015/08/24/tracking-the-application-lifecycle-on-android/',
+        'title': 'Tracking the Application Lifecycle on Android'
+    });
+</script>
+
+</body>

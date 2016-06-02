@@ -1,0 +1,276 @@
+/* Fonts */
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700);
+@import url(https://fonts.googleapis.com/css?family=Slabo+13px:400);
+
+/* General */
+body {
+    background-color: #fff;
+    color: #181619;
+}
+
+blockquote {
+    border-left: 6px solid #e4ded0;
+    padding: 8px 0 8px 10px;
+    margin-left: 20px;
+}
+
+a {
+    outline: 0;
+}
+
+ol {
+    margin-left: 12px;
+}
+
+ol li {
+    margin-bottom: 4px;
+}
+
+.underline {
+    display: inline-block;
+    border-bottom: 7px solid transparent;
+    border-image: url('../img/underline.png') 16 stretch;
+}
+
+.otherpost, .otherpost a {
+    font-size: 15px;
+    color: #ccc;
+}
+
+/* Menu */
+.hidden.menu {
+    display: none;
+}
+
+.menu .container {
+    border-bottom: 1px solid #181619;
+}
+
+.menu ul {
+    margin: 0 0 0 35px;
+}
+
+.menu ul {
+    list-style-type: none;
+    height: 54px;
+    line-height: 48px;
+    padding: 6px 0 0 0;
+}
+
+.menu li {
+    display: inline;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-right: 20px;
+}
+
+.menu li.active {
+    font-weight: 700;
+}
+
+.menu a {
+    color: #181619;
+}
+
+.menu a:hover {
+    font-weight: 700;
+}
+
+.menu h2 {
+    color: #e32f21;
+    line-height: 54px;
+    margin: 0;
+    padding: 3px 0 0 0;
+}
+
+.top.menu, .page.menu {
+    border: none;
+    box-shadow: none;
+}
+
+.top.menu {
+    background: #fff;
+}
+
+.top.menu .container {
+    padding-left: 20px;
+}
+
+.page.menu {
+    margin: 3px 0 48px 0;
+}
+
+/* Masthead */
+.masthead h3 {
+    font-family: 'Slabo 13px', serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Page */
+.main.page {
+    margin-bottom: 20px;
+}
+
+.main.page .ui.container {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.page .segment {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+}
+
+.page ol li {
+    margin-top: 12px;
+}
+
+.segment.excerpt {
+    margin-bottom: 36px;
+}
+
+.segment.excerpt a, .segment.excerpt a:hover {
+    color: #181619;
+    text-decoration: none;
+}
+
+.cover.image {
+    margin-top: 10px;
+}
+
+.published {
+    display: block;
+    margin-top: -12px;
+    color: #ccc;
+}
+
+.readmore {
+    color: #00b5ad;
+}
+
+.page .ribbon.label {
+    text-transform: uppercase;
+}
+
+.page h2 {
+    font-family: 'Slabo 13px', serif;
+    font-size: 40px;
+}
+
+.page h3 {
+    font-family: 'Slabo 13px', serif;
+    font-size: 24px;
+    color: #00b5ad;
+}
+
+.page p a {
+    color: #181619;
+    display: inline-block;
+    border-bottom: 7px solid transparent;
+    margin-bottom: -7px;
+    border-image: url('../img/underline.png') 16 stretch;
+}
+
+.page p a:hover {
+    color: #e32f21;
+}
+
+.page img {
+    margin-bottom: 20px;
+}
+
+.page img + em {
+    display: block;
+    margin: -12px auto 0 auto;
+    text-align: center;
+    color: #666;
+}
+
+/* Social */
+.social.rail .segment {
+    width: 48px;
+    margin: 0;
+    padding: 210px 0 0 0;
+    background: transparent;
+}
+
+.social.rail a {
+    display: block;
+    text-align: center;
+    width: 44px;
+    height: 44px;
+    line-height: 32px;
+    padding: 5px 4px 4px 4px;
+    margin: 0 0 8px -54px;
+    color: #fff;
+    background-color: #e4ded0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.social.rail a i {
+    padding-left: 2px;
+}
+
+.social.rail a:hover {
+    background-color: #00b5ad;
+}
+
+@media (max-width: 800px) {
+    .social.rail {
+        display: none;
+    }
+}
+
+.social.bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 64px;
+    margin: 0;
+    padding: 0;
+    background-color: #e4ded0;
+    color: #fff;
+    z-index: 100;
+}
+
+.social.bar .ui.grid,
+.social.bar .ui.grid > .column:not(.row) {
+    height: 64px;
+    margin: 0;
+    padding: 0;
+}
+
+.social.bar a {
+    display: block;
+    width: 100%;
+    height: 64px;
+    line-height: 64px;
+    background-color: #e4ded0;
+    color: #fff;
+}
+
+.social.bar a:hover {
+    background-color: #00b5ad;
+}
+
+@media (min-width: 800px) {
+    .social.bar {
+        display: none;
+    }
+}
+
+/* Footer */
+.ui.footer {
+    min-height: 120px;
+}
+
+.footer.item a {
+    color: #e4ded0;
+}
