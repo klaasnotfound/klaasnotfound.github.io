@@ -26,6 +26,13 @@ ol li {
     margin-bottom: 4px;
 }
 
+code {
+    font-size: 15px;
+    background-color: #efefef;
+    margin: 2px;
+    padding: 2px;
+}
+
 .underline {
     display: inline-block;
     border-bottom: 7px solid transparent;
