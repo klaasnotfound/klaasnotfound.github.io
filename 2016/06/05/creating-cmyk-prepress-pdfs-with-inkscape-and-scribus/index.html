@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Creating CMYK Prepress PDFs with Inkscape and Scribus – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta name="description" content="Inkscape is a fantastic tool for creating beautiful vector graphics (I have sung its praises in this blog before).
+Unfortunately, there is one thing that Inkscape cannot do: Export a print-production-ready PDF. The moment you 
+finish designing your awesome new flyer, business card or poster with Inkscape and then realize you cannot simply hit
+the “send PDF to printing service” button can be somewhat frustrating. But don’t worry, there is a way!
+
+" />
+    <meta property="og:description" content="Inkscape is a fantastic tool for creating beautiful vector graphics (I have sung its praises in this blog before).
+Unfortunately, there is one thing that Inkscape cannot do: Export a print-production-ready PDF. The moment you 
+finish designing your awesome new flyer, business card or poster with Inkscape and then realize you cannot simply hit
+the “send PDF to printing service” button can be somewhat frustrating. But don’t worry, there is a way!
+
+" />
+    
+    
+    <meta name="og:image" content="/assets/content/prepress_01.jpg" />
+    
+    <meta name="author" content="KlaasNotFound" />
+    
+    <meta property="og:title" content="Creating CMYK Prepress PDFs with Inkscape and Scribus" />
+    <meta property="twitter:title" content="Creating CMYK Prepress PDFs with Inkscape and Scribus" />
+    
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <h2>KNF</h2>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=Creating+CMYK+Prepress+PDFs+with+Inkscape+and+Scribus&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F06%2F05%2Fcreating-cmyk-prepress-pdfs-with-inkscape-and-scribus%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F06%2F05%2Fcreating-cmyk-prepress-pdfs-with-inkscape-and-scribus%2F&title=Creating+CMYK+Prepress+PDFs+with+Inkscape+and+Scribus&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F06%2F05%2Fcreating-cmyk-prepress-pdfs-with-inkscape-and-scribus%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F06%2F05%2Fcreating-cmyk-prepress-pdfs-with-inkscape-and-scribus%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=Creating+CMYK+Prepress+PDFs+with+Inkscape+and+Scribus&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F06%2F05%2Fcreating-cmyk-prepress-pdfs-with-inkscape-and-scribus%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F06%2F05%2Fcreating-cmyk-prepress-pdfs-with-inkscape-and-scribus%2F&title=Creating+CMYK+Prepress+PDFs+with+Inkscape+and+Scribus&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F06%2F05%2Fcreating-cmyk-prepress-pdfs-with-inkscape-and-scribus%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F06%2F05%2Fcreating-cmyk-prepress-pdfs-with-inkscape-and-scribus%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">5 June 2016</div>
+            <h2>Creating CMYK Prepress PDFs with Inkscape and Scribus</h2>
+            
+            <blockquote><b>tl;dr</b> Inkscape cannot export prepress PDFs. Scribus can, though. I'll show you how.</blockquote>
+            
+
+            <p>Inkscape is a fantastic tool for creating beautiful vector graphics (I have sung its praises in this blog before).
+Unfortunately, there is one thing that Inkscape cannot do: Export a print-production-ready PDF. The moment you 
+finish designing your awesome new flyer, business card or poster with Inkscape and then realize you cannot simply hit
+the “send PDF to printing service” button can be somewhat frustrating. But don’t worry, there is a way!</p>
+
+<p><img src="/assets/content/prepress_01.jpg" alt="" class="ui big centered image" />
+<em>Let’s get it ready for printing.</em></p>
+
+<p>There are two main reasons why Inkscape fails in the prepress department: Firstly, while it <em>can</em> export various PDF 
+standards, it does not support the de-facto prepress printing standard <em>PDF/X-3</em>. Secondly, and more importantly, 
+Inkscape is not able to embed color profiles in epxorted PDFs.</p>
+
+<p>Luckily for us, there is another great <em>free and open-source software</em> called <a href="https://www.scribus.net/">Scribus</a>. 
+Inkscape and Scribus are like two good buddies that help each other out. While Scribus is not as powerful when 
+it comes to creating and editing your graphic illustration, it shines when you want to take that creation to the 
+printing press. In the following, I’ll show you a workflow that I have successfully used to obtain 
+prepress PDFs (with a properly embedded color profile) using the two programs.</p>
+
+<p><em>A word of warning</em>: The workflow involves converting colors manually, so if you have a lot of colors in your source 
+document, this might be a show stopper and you should look for commercial alternatives.</p>
+
+<h3 id="step-0-set-up-inkscape-color-profiles-and-scribus">Step 0: Set up Inkscape, Color Profiles and Scribus</h3>
+<ul>
+  <li>Install both <a href="https://inkscape.org/en/download/">Inkscape</a> and 
+<a href="https://www.scribus.net/downloads/stable-branch/">Scribus</a>.</li>
+  <li>Most of the (European) printing companies I have used, require the “ISO Coated v2 300% (ECI)” profile. Make sure 
+you find out which color profile your printing service requires, then <a href="http://www.eci.org/de/downloads">download it</a> 
+and save it to your system’s default location for color profiles. Some typical locations:
+    <ul>
+      <li>Windows: <code>\Windows\System32\Spool\Drivers\Color</code> or <code>\Windows\System\Color</code></li>
+      <li>Mac: <code>Username/Library/ColorSync/Profiles</code> or <code>HD/Library/ColorSync/Profiles</code></li>
+      <li><em>They could be stored elsewhere.</em> Google around…</li>
+    </ul>
+  </li>
+  <li>In Scribus, go to “Settings”, then “Color Management”. Under “CMYK Solid Colors” choose the profile you just 
+installed in the dropdown. If it doesn’t appear, you haven’t saved it in the right location. Repeat the previous step
+until Scribus can find the color profile.</li>
+</ul>
+
+<p><img src="/assets/content/prepress_02.png" alt="" class="ui big centered image" /></p>
+
+<ul>
+  <li>If you want, check “Simulate Printer on the Screen” and “Convert all colors to printer space”. Scribus will then 
+attempt to make the colors look more similar to the actual print result, though that simulation might still be off 
+by a lot if your screen is not calibrated.</li>
+</ul>
+
+<h3 id="step-1-prepare-the-svg">Step 1: Prepare the SVG</h3>
+<ul>
+  <li>Open/create your SVG file with Inkscape.</li>
+  <li>Convert all your texts to paths (select text objects, press <code>Shift+Ctrl+C</code> and ungroup with <code>Shift+Ctrl+G</code> to 
+ensure the characters have become individual vector shapes).</li>
+  <li>Get rid of any additional layers you might have (merge everything into one layer).</li>
+  <li>Get rid of any transparent elements (check the <em>stroke</em> and <em>fill</em> of all objects).</li>
+  <li>“Save a copy…” of the SVG in a separate file (like <code>myfile_final.svg</code>).</li>
+</ul>
+
+<h3 id="step-2-convert-the-colors">Step 2: Convert the Colors</h3>
+<ul>
+  <li>Open the SVG you just created with Scribus (in the “Open” dialog change the filter to “All files” to be able to 
+pick your SVG). Scribus may complain that some features of your SVG are not supported (which is most likely because 
+of Inkscape data in the SVG or because you still have transparencies defined somewhere). Don’t worry about it for now.</li>
+  <li>Under “File” &gt; “Document Setup” &gt; “Page Size” double-check that the width and height are correct (I’m a bit 
+pedantic and find that they’re usually off by sub-millimeters). Correct the size if necessary.</li>
+  <li>Go to “Edit” &gt; “Colors”. You should see numerous colors imported from the SVG.</li>
+</ul>
+
+<p><img src="/assets/content/prepress_03.png" alt="" class="ui centered image" /></p>
+
+<ul>
+  <li>Click on “Remove Unused”. This cleans the palette and leaves only the colors that are actually in use.</li>
+</ul>
+
+<p><img src="/assets/content/prepress_04.png" alt="" class="ui centered image" /></p>
+
+<ul>
+  <li>If you’re using a pure black (<em>#000000</em>) or pure white (<em>#ffffff</em>) in your SVG, choose it, then click on “Delete” 
+and “Replace with” the predefined CMYK black and white.</li>
+  <li>Go through each of the remaining colors that still appear as RGB (<img src="/assets/content/prepress_05.png" alt="" />), 
+click on “Edit”, give them a meaningful name and choose “CMYK” for the color model. If you have an idea which CMYK 
+values the color should have (e.g. from a color book) adjust the values, otherwise just accept the autoconverted values.</li>
+  <li>When you’re done, the color dialog should only contain CMYK (<img src="/assets/content/prepress_06.png" alt="" />) colors, like so:</li>
+</ul>
+
+<p><img src="/assets/content/prepress_07.png" alt="" class="ui centered image" /></p>
+
+<ul>
+  <li>Save your Scribus file as <code>myfile_final.sla</code>.</li>
+</ul>
+
+<h3 id="step-3-export-the-final-pdf">Step 3: Export the Final PDF</h3>
+
+<ul>
+  <li>In Scribus, go to “File” &gt; “Export” &gt; “Save as PDF…”</li>
+  <li>Choose a filename like <code>myfile_cmyk_final.pdf</code>, preferably in a subfolder named <code>prepress</code> (so that it’s crystal 
+clear which are the final files that should be sent to printing).</li>
+  <li>As mentioned above, most printing services require PDF/X-3 files, so choose that in the “Compatibility” dropdown.</li>
+</ul>
+
+<p><img src="/assets/content/prepress_08.png" alt="" class="ui centered image" /></p>
+
+<ul>
+  <li>I also usually untick “Compress Text and Vector Graphics” in the same dialog, though that’s probably unnecessary 
+ (there shouldn’t be any text left in your file). I’m just a bit superstitious.</li>
+  <li>Go to the “Pre-press” tab and under “Output Profile” choose your desired color profile in the 
+ dropdown:</li>
+</ul>
+
+<p><img src="/assets/content/prepress_09.png" alt="" class="ui centered image" /></p>
+
+<ul>
+  <li>Hit “Save”.</li>
+</ul>
+
+<p>That’s it. Enjoy your production-ready PDF file ;-)!</p>
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2016 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2016/06/05/creating-cmyk-prepress-pdfs-with-inkscape-and-scribus/',
+        'title': 'Creating CMYK Prepress PDFs with Inkscape and Scribus'
+    });
+</script>
+
+</body>

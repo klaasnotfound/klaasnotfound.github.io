@@ -183,6 +183,10 @@ ol li {
     margin-bottom: 20px;
 }
 
+.page li img {
+    margin: 0;
+}
+
 .page img + em {
     display: block;
     margin: -12px auto 0 auto;
