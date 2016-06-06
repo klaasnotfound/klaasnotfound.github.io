@@ -31,6 +31,9 @@ code {
     background-color: #efefef;
     margin: 2px;
     padding: 2px;
+    white-space:pre-wrap;
+    word-break:break-all;
+    word-wrap:break-word;
 }
 
 .underline {
