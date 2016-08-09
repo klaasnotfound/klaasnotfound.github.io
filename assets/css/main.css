@@ -31,9 +31,9 @@ code {
     background-color: #efefef;
     margin: 2px;
     padding: 2px;
-    white-space:pre-wrap;
-    word-break:break-all;
-    word-wrap:break-word;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 
 .underline {
@@ -86,11 +86,17 @@ code {
     font-weight: 700;
 }
 
-.menu h2 {
+.menu a.acr {
     color: #e32f21;
+    font-size: 20px;
+    font-weight: 700;
     line-height: 54px;
     margin: 0;
     padding: 3px 0 0 0;
+}
+
+.menu a.acr:hover {
+    color: #e32f21;
 }
 
 .top.menu, .page.menu {
@@ -202,6 +208,17 @@ code {
     margin: -12px auto 0 auto;
     text-align: center;
     color: #666;
+}
+
+.page table {
+    margin: 0 auto;
+    padding: 0;
+    border-spacing: 16px 0;
+    border-collapse: separate;
+}
+
+.page table th {
+    border-bottom: 1px solid #ccc;
 }
 
 /* Social */

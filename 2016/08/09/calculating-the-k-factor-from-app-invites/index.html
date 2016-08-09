@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Calculating the K-Factor from App Invites – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta property="og:title" content="Calculating the K-Factor from App Invites" />
+    <meta property="twitter:title" content="Calculating the K-Factor from App Invites" />
+    
+    
+    <meta name="description" content="Word-of-mouth marketing is crucial. Actually, it’s not just that. In a sense it is the only sustainable form of 
+marketing. When you build a product, it should eventually become so good that your users recommend it to others. They
+will do this for free and of their own accord, simply because they love your product. Your user base will grow 
+organically and - assuming your product also has decent retention (i.e. existing users will continue to use your 
+product) - your active user base will grow.
+
+" />
+    <meta property="og:description" content="Word-of-mouth marketing is crucial. Actually, it’s not just that. In a sense it is the only sustainable form of 
+marketing. When you build a product, it should eventually become so good that your users recommend it to others. They
+will do this for free and of their own accord, simply because they love your product. Your user base will grow 
+organically and - assuming your product also has decent retention (i.e. existing users will continue to use your 
+product) - your active user base will grow.
+
+" />
+    
+    
+    <meta name="og:image" content="http://www.klaasnotfound.com/assets/content/kfactor_01.jpg" />
+    
+    <meta name="author" content="KlaasNotFound" />
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <a href="/" class="acr">KNF</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=Calculating+the+K-Factor+from+App+Invites&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F08%2F09%2Fcalculating-the-k-factor-from-app-invites%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F08%2F09%2Fcalculating-the-k-factor-from-app-invites%2F&title=Calculating+the+K-Factor+from+App+Invites&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F08%2F09%2Fcalculating-the-k-factor-from-app-invites%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F08%2F09%2Fcalculating-the-k-factor-from-app-invites%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=Calculating+the+K-Factor+from+App+Invites&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F08%2F09%2Fcalculating-the-k-factor-from-app-invites%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F08%2F09%2Fcalculating-the-k-factor-from-app-invites%2F&title=Calculating+the+K-Factor+from+App+Invites&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F08%2F09%2Fcalculating-the-k-factor-from-app-invites%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F08%2F09%2Fcalculating-the-k-factor-from-app-invites%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">9 August 2016</div>
+            <h2>Calculating the K-Factor from App Invites</h2>
+            
+            <blockquote><b>tl;dr</b> The k-factor is an important metric for measuring viral growth. I'll show you how to calculate it when users invite other users to an app.</blockquote>
+            
+
+            <p>Word-of-mouth marketing is crucial. Actually, it’s not just that. In a sense it is the only sustainable form of 
+marketing. When you build a product, it should eventually become so good that your users recommend it to others. They
+will do this for free and of their own accord, simply because they love your product. Your user base will grow 
+organically and - assuming your product also has decent retention (i.e. existing users will continue to use your 
+product) - your active user base will grow.</p>
+
+<p><img src="/assets/content/kfactor_01.jpg" alt="" class="ui huge centered image" />
+<em>Viral growth. Bad with diseases. Good for your product.</em></p>
+
+<p>If your product is a mobile app or a web application with a simple signup process, it makes a lot of sense to 
+facilitate word-of-mouth marketing by enabling existing users to invite new users and (possibly) reward them for 
+successful invites. The reward could be anything from a monetary referral bonus in an online shop, replenished lives 
+in a game, to the simple benefit of a better experience when friends join an ecosystem the inviter is already a part 
+of. Once you have built this feature and can track when users send invites as well as when new users sign up via an 
+invite, you might be wondering how to measure the speed and effectiveness of the organic growth driven by invites.
+I’ll show you how to do exactly that.</p>
+
+<p>If you want to skip the details, you can <a href="#in-a-nutshell">cut to the chase here</a>.</p>
+
+<h3 id="viral-growth-and-the-k-factor">Viral Growth and the K-Factor</h3>
+
+<p>When users invite new users, all that matters are <strong>two parameters</strong>:</p>
+
+<ul>
+  <li>The <em>K-Factor</em> tells you how many new users each of your existing users acquires on average.</li>
+  <li>The <em>viral cycle time</em> tells you how quickly that happens.</li>
+</ul>
+
+<p>As the term <em>viral</em> growth suggests, the terminology is borrowed from epidemiology. You can think of the <em>K-Factor</em> as
+the contagiousness of the virus (how many people are infected by a person carrying the virus) and the 
+<em>cycle time</em> as the infection interval (how long does it take for a newly infected person to infect others).
+While both of these certainly sound unpleasant in the context of epidemic diseases, obviously “infections” are good 
+when they mean people are spreading the word about your app. Specifically:</p>
+
+<ul>
+  <li>A high <em>K-Factor</em> is good. This means any infected person (an active user of your app) infects many other people 
+(tells them about your app, they like it and start using it).</li>
+  <li>A low <em>cycle time</em> is good. This means infections (active users successfully inviting new users) happen quickly.</li>
+</ul>
+
+<p>A <strong>K-Factor &gt; 1</strong> and a <strong>small cycle time</strong> can lead to explosive exponential growth. The general principle behind 
+this is easily understandable (“If, on average, every user acquires a little more than one new user within a few days
+and each of those users again acquires more than one new user …”). However, if you do the actual math and model the 
+growth in a spreadsheet, the sensitivity of the exponential growth function with respect to both the <em>K-Factor</em>  and 
+the <em>cycle time</em> can blow your mind. I won’t dig any deeper here, but I strongly suggest you do the modelling exercise 
+for yourself, because it really helps you understand what difference minute optimizations in your app could make if 
+they positively affect <em>K-Factor</em>  or <em>cycle time</em>.</p>
+
+<h3 id="the-k-factor-in-theory">The K-Factor in Theory</h3>
+
+<p>If you go by the textbook (<a href="https://en.wikipedia.org/wiki/K-Factor_(marketing)">Wikipedia</a>) definition of the 
+<em>K-Factor</em>, it is to be calculated as</p>
+
+<script type="math/tex; mode=display">\begin{align*}
+  k = i \cdot c
+\end{align*}</script>
+
+<p>where <script type="math/tex">i</script> is the number of invites sent by a user (e.g. 5 invites sent), and <script type="math/tex">c</script> is the average conversion rate of 
+those invites (e.g. 1 in 5 invites = 20% accepted). So in order to calculate the <em>K-Factor</em> of each user, we would 
+need to know how many people the user sent invites to and how many of those invites were accepted. Once we have 
+calculated the individual <em>K-Factor</em> for each user, we can average them up and - boom! - there is the <em>K-Factor</em> for 
+our app.</p>
+
+<p><img src="/assets/content/kfactor_02.png" alt="" class="ui big centered image" /></p>
+
+<h3 id="the-thing-with-invites">The Thing with Invites</h3>
+
+<p>While the idea of tracking each and every invite may sound appealing, it’s actually not that straightforward in 
+practice. No matter how you design your invite system - at a certain point your users will have to share some sort of 
+information <em>externally</em> (an invite link, a referral code). This is where you end up in a dilemma:</p>
+
+<ul>
+  <li>
+    <p>Sharing should be as easy and convenient as possible in order to maximize dissemination. However, if you just let 
+the user copy the invite info or share it via another app, you lose track of who and how many people the invite is 
+actually sent to.</p>
+  </li>
+  <li>
+    <p>If, on the other hand, you want to have total control of the sharing/sending process you have to ask for a bunch of
+permissions (address book, sending text messages etc.) that will make your app look like a creepy control freak.</p>
+  </li>
+</ul>
+
+<p>The following is a real-life screenshot of the Android permission page of a popular location-sharing app that handles 
+all sharing activity from within the app:</p>
+
+<p><img src="/assets/content/kfactor_03.png" alt="" class="ui big centered image" /></p>
+
+<p><em>My advice to you</em>: If you don’t need these permissions for other, well-justified use cases - <strong>don’t do this. Ever.</strong> 
+The top priority is that your users share invites. This process should be as comfortable as possible and should thus 
+make use of the built-in sharing dialogs or the “copy to clipboard” functionality of the host OS. These require no 
+extra permissions and the user can freely decide how, when and with whom they want to share the invite. Also, you 
+won’t have to implement and maintain a slew of additional sharing functionality that has nothing to do with the core 
+of your app.</p>
+
+<p>Before we proceed, let me remark that - even though you don’t have detailed stats on sent invites with the external 
+sharing approach - you can still know which users try to share an invite. To obtain this info, log an analytics
+event right before users leave your app to share, e.g. when they have requested a referral code and click on “Share” 
+or “Copy”. This way you will have a pretty good estimate of which users share invites and how quickly/often they do so.</p>
+
+<h3 id="the-k-factor-in-practice">The K-Factor in Practice</h3>
+
+<p>So if we don’t track how many invites are sent to whom, how can we calculate the K-Factor at all? Well, it turns out 
+it is still feasible. In fact it’s rather easy. Let’s take another look at the formula of the <em>K-Factor</em>:
+<script type="math/tex">k = i \cdot c</script>. Seeing how the conversion rate <script type="math/tex">c</script> is simply the ratio of <em>invites accepted</em> and  <em>invites sent</em>
+(<script type="math/tex">i</script>) per user, we can just cancel <em>invites sent</em> (<script type="math/tex">i</script>) from the equation and end up with:</p>
+
+<script type="math/tex; mode=display">\begin{align*}
+  k = \textrm{# of successfully invited users}
+\end{align*}</script>
+
+<p>The formula is basically just a fancy way of saying that invites do play a role in acquiring new users (if you don’t 
+send any invites, you can’t acquire new users, duh). But <strong>for calculating the <em>K-Factor</em> the only thing that’s 
+relevant is how many invites were accepted</strong> and not how many invites were actually sent. In other words, a user that 
+sends 20 invites and acquires 2 new users has the same <em>K-Factor</em> as a user who sends 2 invites and acquires 2 new 
+users (namely <script type="math/tex">k=2</script>).</p>
+
+<p>So to calculate the <em>K-Factor</em> we simply need to track how many invites from a given user were accepted. This should 
+be fairly easy, because new users will join via the invite link or the referral code that was sent to them, which 
+let’s us identify who invited them. Then we average up the individual <em>K-Factors</em> and - bazinga! - there is the 
+<em>K-Factor</em> for our app.</p>
+
+<p><img src="/assets/content/kfactor_04.jpg" alt="" class="ui huge centered image" />
+<em>What window are we looking at?</em></p>
+
+<h3 id="time-window-and-relevant-users">Time Window and Relevant Users</h3>
+
+<p>Now that we’re clear on how to handle invites, calculation should be straightforward. There is just one issue: Like 
+most other performance metrics, we would like a rolling analysis of the <em>K-Factor</em> <strong>based on a fixed time window</strong>, 
+e.g. the past day, the past week, the past month etc. We do the same with metrics like retention (“Of all users 
+that installed my app two days ago, how many came back yesterday?”), so surely this should be possible for the 
+<em>K-Factor</em>?</p>
+
+<p>It is possible, but we need to realize several things about how growth by invites works.</p>
+
+<ul>
+  <li>A bunch of users might be actively using your product, but not all of them are relevant for calculating the 
+<em>K-Factor</em>.</li>
+  <li>Unless your product is invite-only (e.g. in early beta) you will have both <em>invited signups</em> and <em>normal signups</em>.</li>
+  <li>Chains of invites can occur within a single day or span multiple days.</li>
+  <li>Invites could be sent by both <em>existing users</em> and by newly <em>invited users</em>.</li>
+  <li>Unless your invites expire, it’s impossible to specify an upper limit on the acceptance time.</li>
+</ul>
+
+<blockquote>
+  <p>With these aspects in mind <strong>here’s an exercise for you</strong>: If today is <em>Day 0</em> and you have analytics data (normal 
+signups, invited signups) for the past <em>3</em> days, try to calculate the <em>K-Factor</em> for <em>Day -3</em> (three days ago).</p>
+</blockquote>
+
+<p>If your thought process throughout this exercise was similar to mine, you may have come to the following conclusions:</p>
+
+<ol>
+  <li>
+    <p>To be able to calculate a (lower bound approximation of) <em>the K-Factor</em> we need to <strong>specify a time window that 
+corresponds to the expected <em>cycle time</em></strong>. Given the specifics of our app (when and how often do we ask users to 
+invite others, how easy is that process, how easy is it to accept, how long does it typically take to accept), the 
+time window is a best guess for the period in which <em>invited users</em> are “hot” and could “infect” other users. 
+It also reflects the maximum time span in which a sent invite must be accepted to be counted.</p>
+  </li>
+  <li>
+    <p>For the chosen time window we should <strong>consider two groups of users</strong>: a) “Old” users that send an invite during 
+the time window and b) all new users who signed up during the time window. The rest of our user base should be 
+ignored, even if they are active.</p>
+  </li>
+</ol>
+
+<p>The reasoning behind the first conclusion should be obvious. If there is an expiry time for invites, we can simply 
+use that as our time window. If there isn’t, we have a problem: An invite could be accepted after one day or after 
+ten years. In order to come up with any number for the <em>K-Factor</em> we must specify a reasonable threshold for the time
+window. For the referral program of a real estate company this could be months or even years, for inviting someone to
+use an app it should probably be no more than a few days. Here’s the good news: You can learn the time window from the 
+behavior of your users. For example, if 80% of your inviters send an invite within the first 2 days, you could use 
+that as your threshold. Also, no matter what time window you choose, you will never <em>overestimate</em> the 
+<em>K-Factor</em>, since invites could be accepted after the time window and the actual <em>K-Factor</em> will be better than your 
+estimate. The challenge is to find a time window that is sufficiently short so that you get timely estimates, but 
+long enough that the majority of relevant invite activity is considered.</p>
+
+<p>The second conclusion may not be as obvious, so join me in this thought experiment: If you have 5.000 daily active 
+users when you start your invite program how many of them should contribute to the <em>K-Factor</em>? All of them? Certainly
+not, because then your <em>K-Factor</em> would be unrealistically bad (lots of users who didn’t acquire new users). None of 
+them? Probably also not a good idea, because what if 500 of them actually started to send out invites? You’d leave 
+out all those invites. So for your existing active user base the most reasonable thing seems to be to consider those 
+users who send out invites during your analysis time window.</p>
+
+<p>Great, so what about new users that sign up once your invite program is in place? Should we only consider users that
+joined through an invite? Or just those that send an invite? I personally think neither is a good idea. By the 
+time your invite program is integrated into your product, new users should be incentivized to invite others as part of
+the onboarding process, at a point where they are sufficiently engaged with your product and can be considered “fully 
+infected”. This should be regardless of whether those users signed up via an invite or not. By the same logic, all 
+fully onboarded or “infected” users should be regarded as potential disseminators, not just the ones that actually 
+send out invites. Suppose that the invites sent from your app would be super effective (e.g. have a conversion rate of 
+<script type="math/tex">c=1</script>) but, for some strange reason, you could only get very few new users to actually send out invites. 
+If you considered only users that send out invites, your <em>K-Factor</em> would seem to be phenomenal, while in reality it 
+would be rather low. To avoid this bias, you must consider all newly signed up users in your analysis window.</p>
+
+<h3 id="a-toy-example">A Toy Example</h3>
+
+<p>Now that we have all the ingredients lined up, let’s go through a toy example.</p>
+
+<p><img src="/assets/content/kfactor_05.png" alt="" class="ui huge centered image" />
+<em>A fictitious chain of signups and invites over three days.</em></p>
+
+<p>Today is <em>Day 0</em> and the figure shows analytics data for the past three days. Each row represents an entire day and the 
+dots within the rows represent signup and/or invite events, ordered chronologically from top left to bottom right within
+each day. Obviously more users are active on any given day, but as explained above, we only consider users that 
+either signed up on that day or had signed up before and sent invites on that day.</p>
+
+<p>The figure reads as follows:</p>
+
+<ul>
+  <li>Red dots represent users that signed up normally (not via an invite) and did not send any invites.</li>
+  <li>Blue dots represent (new or existing) users who sent at least one invite.</li>
+  <li>Yellow circles mark users who signed up via an invite. The black lines connect them to their respective inviter.</li>
+</ul>
+
+<p>Let’s assume that the time window / expected <em>cycle time</em> for the app is 2 days. This means we have the full data to 
+calculate the <em>K-Factor</em> for <em>Day -3</em>. The histogram of individual user <em>K-Factors</em> on that day is:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"># Successful Invites</th>
+      <th style="text-align: center"># Users</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>which gives us an average <em>K-Factor</em> of</p>
+
+<script type="math/tex; mode=display">\begin{align*}
+  k = \frac{0\cdot3 + 1\cdot1 + 2\cdot0 + 3\cdot2 + 4\cdot1}{3+1+0+2+1} = \frac{11}{7} = 1.57
+\end{align*}</script>
+
+<h3 id="in-a-nutshell">In a Nutshell</h3>
+
+<p>To summarize, here are the key takeaways:</p>
+
+<ul>
+  <li>If your app, website or product has a simple signup process, it is a good idea to implement an invite system to 
+accelerate growth.</li>
+  <li>Inviting new users can be incentivized but doesn’t have to. Invites can be really effective when they are actually 
+a feature of your product (“challenge your friends”, “recruit three backers” etc.).</li>
+  <li>Make your invite functionality as easy and convenient as possible. For apps, use the inbuilt sharing mechanisms 
+that require no extra permissions.</li>
+  <li>Track when invites are shared and when new users sign up via an invite. You might not be able to track to which and
+how many users an invite is sent. That’s ok.</li>
+  <li>Define a time window that represents a reasonable estimate of how long it takes a new user to engage with your 
+product, send out invites and cause others to join via an invite.</li>
+  <li>For your app to go viral via invites, the time window should be on the order of days, not weeks or months. Let’s 
+call the number of days <script type="math/tex">d</script>.</li>
+  <li>To calculate the <em>K-Factor</em> <script type="math/tex">d</script> days ago, count the number of users that signed up <em>or</em> sent an invite on that 
+day. Let’s call that number the <em>active users</em> <script type="math/tex">a</script>.</li>
+  <li>For each active user, count the number of invited signups that the user caused (= successful invites) within the 
+last <script type="math/tex">d</script> days (i.e. until today). Record this number <em>per user</em> and let’s call it the individual <em>K-Factor</em> <script type="math/tex">k_i</script>.</li>
+  <li>The <em>K-Factor</em> is then calculated simply as the average of the individual <em>K-Factors</em>:</li>
+</ul>
+
+<script type="math/tex; mode=display">\begin{align*}
+  k = \frac{1}{a} \sum{k_i}
+\end{align*}</script>
+
+<p>Simple enough, really. However, figuring out which users to consider in which time frame took me some time, so I’m 
+hoping this article may spare you one or several mental detours I took.</p>
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2016 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2016/08/09/calculating-the-k-factor-from-app-invites/',
+        'title': 'Calculating the K-Factor from App Invites'
+    });
+</script>
+
+</body>
