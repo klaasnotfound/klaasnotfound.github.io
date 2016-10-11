@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Continuous Integration with Git Submodules – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta property="og:title" content="Continuous Integration with Git Submodules" />
+    <meta property="twitter:title" content="Continuous Integration with Git Submodules" />
+    
+    
+    <meta name="description" content="Two things are really awesome: 1) Automatically having your code tested upon committing it to a repository and 2)
+reusing shared code across different repositories. In this post I will outline how to do both. Specifically, I 
+will show you how to set up a working continuous integration build, using the new and fabulous
+Bitbucket Pipelines with a repository that has a submodule 
+dependency.
+
+" />
+    <meta property="og:description" content="Two things are really awesome: 1) Automatically having your code tested upon committing it to a repository and 2)
+reusing shared code across different repositories. In this post I will outline how to do both. Specifically, I 
+will show you how to set up a working continuous integration build, using the new and fabulous
+Bitbucket Pipelines with a repository that has a submodule 
+dependency.
+
+" />
+    
+    
+    <meta name="og:image" content="http://www.klaasnotfound.com/assets/content/submodules_00.jpg" />
+    
+    <meta name="author" content="KlaasNotFound" />
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <a href="/" class="acr">KNF</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=Continuous+Integration+with+Git+Submodules&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F10%2F10%2Fcontinuous-integration-with-git-submodules%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F10%2F10%2Fcontinuous-integration-with-git-submodules%2F&title=Continuous+Integration+with+Git+Submodules&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F10%2F10%2Fcontinuous-integration-with-git-submodules%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F10%2F10%2Fcontinuous-integration-with-git-submodules%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=Continuous+Integration+with+Git+Submodules&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F10%2F10%2Fcontinuous-integration-with-git-submodules%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F10%2F10%2Fcontinuous-integration-with-git-submodules%2F&title=Continuous+Integration+with+Git+Submodules&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F10%2F10%2Fcontinuous-integration-with-git-submodules%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F10%2F10%2Fcontinuous-integration-with-git-submodules%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">10 October 2016</div>
+            <h2>Continuous Integration with Git Submodules</h2>
+            
+            <blockquote><b>tl;dr</b> Git submodules are great for sharing code between repos, but somewhat tricky when testing/building them in the cloud. I'll show you a working setup.</blockquote>
+            
+
+            <p>Two things are really awesome: 1) Automatically having your code tested upon committing it to a repository and 2)
+reusing shared code across different repositories. In this post I will outline how to do both. Specifically, I 
+will show you how to set up a working continuous integration build, using the new and fabulous
+<a href="https://bitbucket.org/product/features/pipelines">Bitbucket Pipelines</a> with a repository that has a submodule 
+dependency.</p>
+
+<p>Having a <a href="https://git-scm.com/docs/git-submodule">Git submodule</a> in your repo makes the CI setup slightly
+non-trivial, so this post was partially written as a “note to future self” (as I won’t remember how to do this 6 months 
+from now ;-). Let’s get right to it.</p>
+
+<h3 id="git-submodules">Git Submodules</h3>
+
+<p>Suppose we have two individual projects, <em>Foo</em> and <em>Bar</em>, each in their own Git repository. Both use a model class 
+called <em>Doobidoo</em> (in this example a Javascript file, but it could be any kind of source file). The repo structure of 
+both <em>Foo</em> and <em>Bar</em> might look like this:</p>
+
+<div class="highlight"><pre><code>src/
+├ controller/
+└ model/
+  ├ ...
+  └  Doobidoo.js
+test/
+└ model/
+  ├ ...
+  └  Doobidoo.spec.js
+</code></pre></div>
+
+<p>As both projects evolve, the model class <em>Doobidoo</em> is enhanced and updated on a regular basis. Because the codebase is 
+awesome, we of course write and update unit tests, which are stored in <em>test/Doobidoo.spec.js</em>. This file, too, is 
+updated regularly. Both projects expect to work with the same model class, so whenever the source code of 
+<em>Doobidoo.js</em> or its associated tests is changed within one repo, it must be updated in the other repo. How do we 
+achieve such a sync?</p>
+
+<p><img src="/assets/content/submodules_00.jpg" alt="" class="ui huge centered image" />
+<em>A repository within a repository within a …</em></p>
+
+<p>After dismissing crazy ideas like symlinks or manually copying the contents back and forth, a quick Google search 
+should convince you that this scenario is 
+<a href="http://stackoverflow.com/questions/28357350/two-git-repositories-share-common-code">a perfect fit for Git submodules</a>.
+You can think of a submodule as a simple Git repo within your repo. The <code>git submodule</code> family of commands makes sure
+that your outer repository treats the inner, shared repository with respect. That’s all I’ll explain about submodules
+ at this point - if you want to learn more, go ahead and read
+<a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">the official tutorial</a>.</p>
+
+<p>So what do we do with the shared code, then? We create a new Git repo <em>Shared</em> with the following structure:</p>
+
+<div class="highlight"><pre><code>src/
+└ model/
+  └  Doobidoo.js
+test/
+└ model/
+  └  Doobidoo.spec.js
+</code></pre></div>
+
+<p>Let’s assume this new repo lives at URL <code>&lt;shared-repo-url&gt;</code>. To add the submodule to <em>Foo</em> and <em>Bar</em>, we can now 
+delete the <em>Doobidoo*.js</em> source files from both those repos and then run <code>git submodule add &lt;shared-repo-url&gt; 
+shared/</code> within the root folder of each project. The structure of <em>Foo</em> and <em>Bar</em> will now be</p>
+
+<div class="highlight"><pre><code>shared/
+├ src/
+| └ model/
+|   └  Doobidoo.js
+└ test/
+  └ model/
+    └  Doobidoo.spec.js
+src/
+├ controller/
+└ model/
+  └ ...
+test/
+  └ ...
+</code></pre></div>
+
+<p><em>Note:</em> The <code>git submodule add</code> command adds a <code>.gitmodules</code> file to the outer repo, which you need to add and push. 
+Also, the first time around you may need to run <code>git submodule init</code> followed by <code>git submodule update</code> in the outer 
+repo to make sure the latest version of your <em>Shared</em> repo ends up in the shared folder. After that you should adapt 
+all references to <em>Doobidoo.js</em> within the <em>Foo</em> and <em>Bar</em> projects.  For example, a reference that formerly pointed to 
+<code>./model/Doobidoo.js</code> would now read <code>../shared/src/model/Doobidoo.js</code>. When you’re done, make sure all your unit 
+tests are up to date
+and passing.</p>
+
+<p><strong>Part 1 is done</strong> - we have moved the shared code to a Git submodule! Simply treat the code inside the <code>shared/</code> 
+folder like you would treat any other repo. If you change anything within the folder (regardless of whether you 
+change it in the <em>Foo</em> or the <em>Bar</em> project or elsewhere), you can query the changes with <code>git status</code> then <code>git add</code>, 
+<code>git commit</code> and <code>git push</code> them. Afterwards <code>git pull</code> the changes from all other repos that use the submodule. Be 
+sure to run all these commands within the <code>shared/</code> folder.</p>
+
+<h3 id="continuous-integration-with-bitbucket-pipelines">Continuous Integration with Bitbucket Pipelines</h3>
+
+<p>If you have ever browsed the codebase of an open source project on Github, you will be familiar with the status
+badge that usually (and hopefully) looks like this:</p>
+
+<p><img src="/assets/content/submodules_01.png" alt="" class="ui small centered image" /></p>
+
+<p>How does GitHub know whether the latest code that was pushed to the repository is actually passing the tests in the 
+codebase? The short answer: It doesn’t. The badges are powered by third party continuous integration services, such as 
+<a href="https://travis-ci.org/">Travis CI</a> and 
+<a href="https://www.quora.com/What-are-the-alternatives-to-Travis-CI">others</a>. In a nutshell, these services listen to 
+changes in your repo and fire up a virtual machine in the cloud that runs your unit tests every time you 
+push something. Pretty neat, huh?</p>
+
+<p>When you’re working on open source projects everything is fine and dandy - both GitHub and Travis are free for such. 
+However, should you not be ready to share your code with the world… well, you’re out of luck. This is where both 
+GitHub and Travis expect some dough and - to be honest - I think this is a very fair business model. Nevertheless, 
+for a personal project, the fees may strike you as somewhat hefty. If you’re comfortable with it, go ahead and spend 
+that $7/month on a personal GitHub account and $129/month <strong>(!)</strong> on Travis.</p>
+
+<p><img src="/assets/content/submodules_02.jpg" alt="" class="ui huge centered image" />
+<em>Look at them pipes…</em></p>
+
+<p>Or don’t. Because recently, something awesome happened. As you might know, Atlassian, the enterprise software giant 
+and maker of JIRA and Confluence, has been offering <em>free</em> unlimited private Git repos for small teams (up to 5 people)
+as part of its cloud-hosted <a href="https://bitbucket.org/">Bitbucket</a> platform for quite some time now. Up to now, that’s what
+it was to me - a code silo for personal projects. However, recently Atlassian added something very cool on top:
+<a href="https://bitbucket.org/product/features/pipelines">Bitbucket Pipelines</a>. Rather then plugging in third party 
+providers (like the GitHub + Travis model), Pipelines is <em>an integral part</em> of Bitbucket, meaning you get a fully 
+integrated CI solution with your hosted repo. Pipelines is currently in beta (there is 1-2 day wait after you sign 
+up), but already it feels pretty awesome. I played around with it and liked it for several reasons:</p>
+
+<ul>
+  <li>Having CI as an integrated part of a cloud-hosted repo feels very natural.</li>
+  <li>The UI is nice and clean.</li>
+  <li>It’s currently <em>free</em> (with a limited quota of 300 build minutes / month).</li>
+</ul>
+
+<p>There is no word on the pricing yet, but I’m hoping Atlassian will challenge GitHub/Travis by continuing to offer a 
+basic free tier (limited build minutes, one instance) after Pipelines leaves beta. We’ll see ;-)</p>
+
+<p>Enough chatter - let’s look at how we would test the repos described above with Bitbucket Pipelines. Assuming the 
+remote of each repo lives on Bitbucket (i.e. at <code>https://bitbucket.org/&lt;user-or-org&gt;/&lt;repo&gt;.git</code>) and that you have 
+successfully signed up for Pipelines, we first enable Pipelines in the repo’s settings:</p>
+
+<p><img src="/assets/content/submodules_03.png" alt="" class="ui big centered image" /></p>
+
+<p>Then, create a file called <code>bitbucket-pipelines.yml</code> in the root folder of your repo. This is where you specify what 
+kind of image / environment the build should run in and what is to be tested. Let’s assume that  <em>Foo</em> and 
+<em>Bar</em> from above are simple <em>Node.js</em> projects and that all unit tests are run by invoking <code>npm test</code>. Then, a valid 
+<code>bitbucket-pipelines.yml</code> would look like this:</p>
+
+<div class="highlight"><pre><code class="language-yaml"><span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node</span>
+
+<span class="l-Scalar-Plain">pipelines</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">step</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm --version</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm install</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm test</span></code></pre></div>
+
+<p>Simple enough, really. Once you push this file to the repo (and on every subsequent push or pull request), Pipelines 
+will spring to life, run your tests and decorate your branches with a test status. You can follow the log output if 
+you like (I found this to be very entertaining at least for the first couple of builds ;-).</p>
+
+<p><img src="/assets/content/submodules_04.png" alt="" class="ui huge centered image" /></p>
+
+<p><strong>Part 2 is done</strong> - now you know what Pipelines is and how to enable and trigger cloud-based builds with it.</p>
+
+<h3 id="putting-it-together">Putting it Together</h3>
+
+<p>I have to make a confession. When I told you that the above <code>bitbucket-pipelines.yml</code> would trigger a successful 
+build of the <em>Foo</em> and <em>Bar</em> repos, that was only partially true. For the initial version (without the submodule) 
+everything would indeed work fine. However, for the refactored version, the test script will fail:</p>
+
+<p><img src="/assets/content/submodules_05.png" alt="" class="ui huge centered image" /></p>
+
+<p>The (Node.js) error would read something like</p>
+
+<div class="highlight"><pre><code>Error: Cannot find module '../shared/src/model/Doobidoo'
+</code></pre></div>
+
+<p>What’s going on here? We <em>did</em> update all the references to <em>Doobidoo.js</em> and made sure our unit tests were passing 
+locally, so this cannot be an issue with relative paths. Indeed it is not - the problem is simpler: On the virtual 
+machine Pipelines first clones a fresh copy of our repository before running the tests. Without explicitly telling 
+Pipelines to pull submodules, too, this copy will <em>not</em> contain the <code>shared/</code> folder with our submodule code. Darn!</p>
+
+<p>So surely we can just tell Pipelines to first pull all the submodules, too, right? You bet!</p>
+
+<div class="highlight"><pre><code class="language-yaml"><span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node</span>
+
+<span class="l-Scalar-Plain">pipelines</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">step</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">git submodule update --init --recursive</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm --version</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm install</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm test</span></code></pre></div>
+
+<p>The <code>git submodule update --init --recursive</code> tells Pipelines to first and foremost clone all submodules contained 
+within the repo, which is what we want. Let’s push again and trigger a new build:</p>
+
+<p><img src="/assets/content/submodules_06.png" alt="" class="ui huge centered image" /></p>
+
+<p>Oh, dear, what’s wrong now? You probably already guessed it - the <em>Shared</em> repo that you added as a submodule needs 
+to be pulled from the <code>&lt;shared-repo-url&gt;</code> using some sort of authentication. When you added it locally on your 
+machine, chances are that that you used a working SSH configuration for the URL, e.g. 
+<code>git@&lt;personal-bitbucket&gt;:&lt;user-or-org&gt;/&lt;shared-repo-name&gt;.git</code>. In that case the error will read:</p>
+
+<div class="highlight"><pre><code>ssh: Could not resolve hostname &lt;personal-bitbucket&gt;: Name or service not known
+</code></pre></div>
+
+<p>The way things are at the moment, the virtual machine that Pipelines fires up cannot possibly know about your SSH 
+authentication for the shared repository (<em>nor should it!</em>). So what do we do? Tell Pipelines about 
+<code>&lt;personal-bitbucket&gt;</code> and add your private SSH key to the build script? That would be a very bad idea for several 
+reasons:</p>
+
+<ul>
+  <li>You should <strong>never, ever</strong> use a personal auth key for an automated process.</li>
+  <li>Keys used by an automated process should always have <strong>read-only</strong> access to repos.</li>
+  <li>You shouldn’t put verbatim keys in repository source code.</li>
+</ul>
+
+<p>Let’s think about how authentication works on your machine. In your <code>~/.ssh/config</code> file you probably have an entry 
+similar to this:</p>
+
+<div class="highlight"><pre><code class="language-bash"><span class="c"># My Bitbucket configuration</span>
+Host personal-bitbucket
+   HostName bitbucket.org
+   User git
+   IdentityFile ~/.ssh/id_rsa_my_private_key</code></pre></div>
+
+<p>Basically, we would like our Pipelines script to have a similar configuration of its own (with read-only access to 
+the repo). Fortunately, like most cloud-hosted repository providers, Bitbucket allows us to configure such access by 
+using so-called 
+<a href="https://confluence.atlassian.com/bitbucket/use-deployment-keys-294486051.html">Deployment Keys</a>.
+So here is how we fix our build, step by step.</p>
+
+<h4 id="generate-a-deployment-key">1. Generate a Deployment Key</h4>
+
+<p>In your console navigate to <code>~/.ssh/</code> and run</p>
+
+<div class="highlight"><pre><code class="language-bash">ssh-keygen -q -t rsa -N <span class="s2">&quot;&quot;</span> -C <span class="s2">&quot;&lt;email_address&gt;&quot;</span> -f &lt;filename&gt;</code></pre></div>
+
+<p>The email address is rather unimportant, but for sake of completeness you may want to put a sensible real-life contact 
+for your automated script here. The filename should have <em>no extension</em> and could be something like 
+<code>id_rsa_myproject_ci</code>. You should now have a public key (<code>id_rsa_myproject_ci.pub</code>) and a private key 
+(<code>id_rsa_myproject_ci</code>) for the continuous integration account in your <code>~/.ssh/</code> folder.</p>
+
+<p>Now is a good time to add this key to your <code>~/.ssh/config</code> file (we will need it later). Go ahead and create the 
+following entry:</p>
+
+<div class="highlight"><pre><code class="language-bash"><span class="c"># Bitbucket configuration for continuous integration account</span>
+Host myproject-ci-bitbucket
+   HostName bitbucket.org
+   User git
+   IdentityFile ~/.ssh/id_rsa_myproject_ci</code></pre></div>
+
+<h4 id="add-the-deployment-key-to-bitbucket">2. Add the Deployment Key to Bitbucket</h4>
+
+<p>Go to the <em>Settings</em> &gt; <em>Deployment Keys</em> section of your <em>Shared</em> repository on Bitbucket. Click on <em>Add Key</em>, give 
+it a <em>Label</em> and paste the content of the <em>public keyfile</em> (<code>id_rsa_myproject_ci.pub</code>) in the <em>Key</em> field.</p>
+
+<p><img src="/assets/content/submodules_07.png" alt="" class="ui huge centered image" /></p>
+
+<p>After saving the key, our CI account will now have read-only access to the <em>Shared</em> repo. Sweet!</p>
+
+<h4 id="add-the-private-key-as-an-environment-variable">3. Add the Private Key as an Environment Variable</h4>
+
+<p>The build script will need to pull the repo using the SSH identity we just created, so at one point, it must have 
+access to the private key file. Since we don’t want to put the private key in the source code, the cleanest way is to
+use an environment variable. Again, Bitbucket has us covered. In fact, we have two choices - 
+<a href="https://confluence.atlassian.com/bitbucket/environment-variables-in-bitbucket-pipelines-794502608.html#EnvironmentvariablesinBitbucketPipelines-User-definedvariables">Repository Variables</a>
+and <a href="https://confluence.atlassian.com/bitbucket/environment-variables-in-bitbucket-pipelines-794502608.html#EnvironmentvariablesinBitbucketPipelines-User-definedvariables">Account Variables</a>.
+If you plan on using the CI account only for one shared repo, you can choose the former, otherwise (and this is what 
+we’ll do) you can add the key as a (global) account environment variable.</p>
+
+<p>Navigate to <em>Bitbucket Settings</em> (top right, by your avatar pic), then to <em>Environment Variables</em>. Add a new variable
+<code>MYPROJECT_CI_PRIVATE_KEY</code>. For the value paste the content of the private key file (<code>id_rsa_myproject_ci</code>), however, 
+replace all line breaks with the <code>\n</code> literal before pasting. Be sure to check the <em>Secured</em> box, which will ensure that
+the key is never actually visible in the settings.</p>
+
+<p><img src="/assets/content/submodules_08.png" alt="" class="ui huge centered image" /></p>
+
+<h4 id="update-the-build-script">4. Update the Build Script</h4>
+
+<p>Now that we have our deployment key in place and the private key at the ready, it’s time to put everything together. 
+In a nutshell, once the virtual machine has booted up, we want to</p>
+
+<ul>
+  <li>Write the private deployment key to an identity file.</li>
+  <li>Add an SSH configuration with the new identity file.</li>
+  <li>Pull the submodules.</li>
+</ul>
+
+<p>And here is how we do it:</p>
+
+<div class="highlight"><pre><code class="language-yaml"><span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node</span>
+
+<span class="l-Scalar-Plain">pipelines</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">step</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mkdir ~/.ssh</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">echo -e $MYPROJECT_CI_PRIVATE_KEY &gt; ~/.ssh/id_rsa_myproject_ci</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">chmod 600 ~/.ssh/id_rsa_myproject_ci</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">echo -e &quot;Host myproject-ci-bitbucket\n   HostName bitbucket.org\n   User git\n   IdentityFile ~/.ssh/id_rsa_myproject_ci\n   StrictHostKeyChecking no&quot; &gt; ~/.ssh/config</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">chmod 600 ~/.ssh/config</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">git submodule update --init --recursive</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm --version</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm install</span>
+          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm test</span></code></pre></div>
+
+<p>Are we done? Almost. There is one tiny thing missing: The submodule we added to the <em>Foo</em> and <em>Bar</em> repos back in the 
+day still uses the old <code>&lt;shared-repo-url&gt;</code>. Let’s go ahead and update that. Instead of using some <code>git submodule</code> 
+command, you may edit the URL directly in the <code>.gitmodules</code> file, which should then look like this:</p>
+
+<div class="highlight"><pre><code>[submodule "shared"]
+	path = shared
+	url = git@myproject-ci-bitbucket:&lt;user-or-org&gt;/&lt;shared-repo-name&gt;.git
+</code></pre></div>
+
+<p>Run <code>git submodule sync</code> once and make sure your tests still work locally, then push the new 
+<code>bitbucket-pipelines.yml</code> and <code>.gitmodules</code> file (for the <em>Foo</em> and/or <em>Bar</em> project). Tuuuhduuuuuh - we should again
+see a passing build:</p>
+
+<p><img src="/assets/content/submodules_09.png" alt="" class="ui huge centered image" /></p>
+
+<p><strong>Part 3 is done</strong> - we have successfully set up a Bitbucket pipelines build of a repo with a submodule dependency!</p>
+
+<h3 id="using-other-platforms">Using Other Platforms</h3>
+
+<p>Of course, you can achieve a similar setup on other platforms, including GitHub + Travis. Instead of a 
+<code>bitbucket-pipelines.yml</code> you would use a <code>.travis.yml</code> and instead of a deployment key you may want to think about 
+using <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">Access Tokens</a>, which are 
+even easier to use than an SSH key pair.</p>
+
+<p>The main takeaway from this blog post is that it makes sense to use Git submodules for shared code and that - 
+with a little extra effort - you can use a CI service such as Pipelines or Travis to test a repo with submodule 
+dependencies. All you have to do is to make sure that the build script will be able to pull the submodules before 
+running the build.</p>
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2016 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2016/10/10/continuous-integration-with-git-submodules/',
+        'title': 'Continuous Integration with Git Submodules'
+    });
+</script>
+
+</body>
