@@ -17,14 +17,14 @@
     <meta name="description" content="Two things are really awesome: 1) Automatically having your code tested upon committing it to a repository and 2)
 reusing shared code across different repositories. In this post I will outline how to do both. Specifically, I 
 will show you how to set up a working continuous integration build, using the new and fabulous
-Bitbucket Pipelines with a repository that has a submodule 
+Bitbucket Pipelines with a Git repository that has a submodule 
 dependency.
 
 " />
     <meta property="og:description" content="Two things are really awesome: 1) Automatically having your code tested upon committing it to a repository and 2)
 reusing shared code across different repositories. In this post I will outline how to do both. Specifically, I 
 will show you how to set up a working continuous integration build, using the new and fabulous
-Bitbucket Pipelines with a repository that has a submodule 
+Bitbucket Pipelines with a Git repository that has a submodule 
 dependency.
 
 " />
@@ -135,13 +135,13 @@ dependency.
             <div class="ui big teal ribbon label">10 October 2016</div>
             <h2>Continuous Integration with Git Submodules</h2>
             
-            <blockquote><b>tl;dr</b> Git submodules are great for sharing code between repos, but somewhat tricky when testing/building them in the cloud. I'll show you a working setup.</blockquote>
+            <blockquote><b>tl;dr</b> Git submodules are great for sharing code between repos, but somewhat tricky when testing/building them in the cloud. I'll show you how to make it work.</blockquote>
             
 
             <p>Two things are really awesome: 1) Automatically having your code tested upon committing it to a repository and 2)
 reusing shared code across different repositories. In this post I will outline how to do both. Specifically, I 
 will show you how to set up a working continuous integration build, using the new and fabulous
-<a href="https://bitbucket.org/product/features/pipelines">Bitbucket Pipelines</a> with a repository that has a submodule 
+<a href="https://bitbucket.org/product/features/pipelines">Bitbucket Pipelines</a> with a Git repository that has a submodule 
 dependency.</p>
 
 <p>Having a <a href="https://git-scm.com/docs/git-submodule">Git submodule</a> in your repo makes the CI setup slightly
@@ -221,9 +221,9 @@ and passing.</p>
 
 <p><strong>Part 1 is done</strong> - we have moved the shared code to a Git submodule! Simply treat the code inside the <code>shared/</code> 
 folder like you would treat any other repo. If you change anything within the folder (regardless of whether you 
-change it in the <em>Foo</em> or the <em>Bar</em> project or elsewhere), you can query the changes with <code>git status</code> then <code>git add</code>, 
-<code>git commit</code> and <code>git push</code> them. Afterwards <code>git pull</code> the changes from all other repos that use the submodule. Be 
-sure to run all these commands within the <code>shared/</code> folder.</p>
+change it within the <em>Foo</em> or the <em>Bar</em> project or elsewhere), you can query the changes with <code>git status</code> then 
+<code>git add</code>, <code>git commit</code> and <code>git push</code> them. Afterwards <code>git pull</code> the changes from all other repos that use the 
+submodule. Be sure to run all these commands within the <code>shared/</code> folder.</p>
 
 <h3 id="continuous-integration-with-bitbucket-pipelines">Continuous Integration with Bitbucket Pipelines</h3>
 
@@ -449,7 +449,7 @@ command, you may edit the URL directly in the <code>.gitmodules</code> file, whi
 	url = git@myproject-ci-bitbucket:&lt;user-or-org&gt;/&lt;shared-repo-name&gt;.git
 </code></pre></div>
 
-<p>Run <code>git submodule sync</code> once and make sure your tests still work locally, then push the new 
+<p>Run <code>git submodule sync</code> once and make sure your tests still work locally, then push the updated 
 <code>bitbucket-pipelines.yml</code> and <code>.gitmodules</code> file (for the <em>Foo</em> and/or <em>Bar</em> project). Tuuuhduuuuuh - we should again
 see a passing build:</p>
 
@@ -457,7 +457,7 @@ see a passing build:</p>
 
 <p><strong>Part 3 is done</strong> - we have successfully set up a Bitbucket pipelines build of a repo with a submodule dependency!</p>
 
-<h3 id="using-other-platforms">Using Other Platforms</h3>
+<h3 id="final-thoughts">Final Thoughts</h3>
 
 <p>Of course, you can achieve a similar setup on other platforms, including GitHub + Travis. Instead of a 
 <code>bitbucket-pipelines.yml</code> you would use a <code>.travis.yml</code> and instead of a deployment key you may want to think about 
@@ -466,8 +466,8 @@ even easier to use than an SSH key pair.</p>
 
 <p>The main takeaway from this blog post is that it makes sense to use Git submodules for shared code and that - 
 with a little extra effort - you can use a CI service such as Pipelines or Travis to test a repo with submodule 
-dependencies. All you have to do is to make sure that the build script will be able to pull the submodules before 
-running the build.</p>
+dependencies, just like you would test a normal repo. All you have to do is to make sure that the build script is 
+able to pull the submodules before running the build. Hopefully, this post gave you some ideas what to look out for.</p>
 
 
             
