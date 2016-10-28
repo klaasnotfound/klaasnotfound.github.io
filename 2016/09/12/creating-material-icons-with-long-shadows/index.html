@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Creating Material Icons with Long Shadows – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta property="og:title" content="Creating Material Icons with Long Shadows" />
+    <meta property="twitter:title" content="Creating Material Icons with Long Shadows" />
+    
+    
+    <meta name="description" content="Recently, I gave a
+short answer to a question about material design icons on the 
+Graphic Design StackExchange forum. I thought it would be worthwhile to show how to make these icons in a 
+tutorial-style blog post, too, so here it goes.
+
+" />
+    <meta property="og:description" content="Recently, I gave a
+short answer to a question about material design icons on the 
+Graphic Design StackExchange forum. I thought it would be worthwhile to show how to make these icons in a 
+tutorial-style blog post, too, so here it goes.
+
+" />
+    
+    
+    <meta name="og:image" content="http://www.klaasnotfound.com/assets/content/material_00.png" />
+    
+    <meta name="author" content="KlaasNotFound" />
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <a href="/" class="acr">KNF</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=Creating+Material+Icons+with+Long+Shadows&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F09%2F12%2Fcreating-material-icons-with-long-shadows%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F09%2F12%2Fcreating-material-icons-with-long-shadows%2F&title=Creating+Material+Icons+with+Long+Shadows&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F09%2F12%2Fcreating-material-icons-with-long-shadows%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F09%2F12%2Fcreating-material-icons-with-long-shadows%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=Creating+Material+Icons+with+Long+Shadows&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F09%2F12%2Fcreating-material-icons-with-long-shadows%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F09%2F12%2Fcreating-material-icons-with-long-shadows%2F&title=Creating+Material+Icons+with+Long+Shadows&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F09%2F12%2Fcreating-material-icons-with-long-shadows%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F09%2F12%2Fcreating-material-icons-with-long-shadows%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">12 September 2016</div>
+            <h2>Creating Material Icons with Long Shadows</h2>
+            
+            <blockquote><b>tl;dr</b> Icons with material design are cool. Here's how to create them using Inkscape.</blockquote>
+            
+
+            <p>Recently, I gave a
+<a href="http://graphicdesign.stackexchange.com/q/77316">short answer</a> to a question about material design icons on the 
+Graphic Design StackExchange forum. I thought it would be worthwhile to show how to make these icons in a 
+tutorial-style blog post, too, so here it goes.</p>
+
+<p><img src="/assets/content/material_00.png" alt="" class="ui big centered image" /></p>
+
+<h3 id="material-design-icons">Material Design Icons</h3>
+
+<p>If you have spent at least one minute browsing through your favorite app store within the past two years, you have 
+definitely seen material design icons. The term <a href="https://material.google.com/">Material Design</a> was coined by Google 
+and describes the homonymous visual language that is used - most prominently - by the Android operating system. 
+Because of their clean and attractive appearance, material design UI elements have spread and been ported to other 
+platforms, for example the web (e.g. using <a href="http://www.material-ui.com">React</a> or 
+<a href="https://material.angular.io/">Angular</a>) and even to some 
+<a href="http://www.cio.com/article/2995074/ios/google-angers-ios-users-with-material-design.html">iOS apps</a>.</p>
+
+<p>Material design features several characteristic styles and effects, most notably</p>
+
+<ul>
+  <li>a flat overall appearance, no gloss whatsoever</li>
+  <li>directional shadows, derived from elevated shapes and few light sources,</li>
+  <li>shapes that are bent or folded, like paper</li>
+  <li>strong, saturated primary colors</li>
+  <li>animated ripple fills triggered by click/touch interaction</li>
+  <li>etc.</li>
+</ul>
+
+<p>The element that has become most ubiquitous, though, are
+<a href="https://material.google.com/style/icons.html#icons-product-icons">flat app icons</a>
+with long directional shadows. They are used widely across different platforms and app genres.</p>
+
+<h3 id="create-the-basic-shape">1. Create the Basic Shape</h3>
+
+<p>For the fun of it, let’s take the official Android mascot and produce a material design icon using
+<a href="http://www.inkscape.org">Inkscape</a>, a free and open source program for creating vector graphics. If you haven’t 
+installed Inkscape yet, go ahead and do so (and then briefly familiarize yourself with the basics of drawing and 
+editing shapes).</p>
+
+<p>We start with the basic vector shape of the robot and a circular background, which you can either quickly draw using 
+(and combining) rounded rectangles and circles or simply <a href="/assets/content/AndroidIcon.svg">download here</a>.</p>
+
+<p><img src="/assets/content/material_01.png" alt="" class="ui big centered image" /></p>
+
+<h3 id="create-the-basic-shadow">2. Create the Basic Shadow</h3>
+
+<p>This is where it starts to get fun. Use the <em>Straight Line</em> tool (<code>Shift + F6</code>) to draw the shadow shape. Think about 
+a directional key light that emits parallel rays from the northwest to the southeast. The light will touch every 
+northwest extremum point of the base shape and cast 45° shadows that point southeast. To achieve an exact rendering 
+of these 45° boundary lines, proceed as follows:</p>
+
+<ul>
+  <li>Start with an approximate outline that has the right number of vertices.</li>
+  <li>Since it is hard to know <em>where exactly</em> the vertex of a shadow edge must be placed on the base shape, simply place
+ these vertices roughly where they need to be.</li>
+  <li>However, while the vertices may still be slightly out of place, make sure that all the 45° line segments already 
+have the correct angle by pressing <code>Ctrl</code> when drawing each of these segments.</li>
+</ul>
+
+<p>You should end up with a closed shape that has the correct number of vertices and perfect 45° line segments that are 
+still slightly misplaced:</p>
+
+<p><img src="/assets/content/material_02.png" alt="" class="ui big centered image" /></p>
+
+<p><em>Note</em>: The shadow shape should overlap the background circle on the southeast side.</p>
+
+<h3 id="fine-tune-the-shadow">3. Fine-tune the Shadow</h3>
+
+<p>Now let’s move the 45° line segments to their exact position. To do this, enter <em>Edit Mode</em> (either double-click the 
+shadow shape or select it and press <code>F2</code>).</p>
+
+<ul>
+  <li>Select the start and end vertex of each 45° line segment (<code>Shift + Click</code> them).</li>
+  <li>Zoom in and drag the northeast vertex of the selected vertex pair onto the edge of the base shape until the shadow 
+line segment is a perfect tangent (and does not overlap the base shape).</li>
+  <li>To facilitate this process, enable all vertex snapping buttons on the right side. This will magnetically snap the 
+vertex that you’re currently moving to the base shape below.</li>
+</ul>
+
+<p><img src="/assets/content/material_03.png" alt="" class="ui huge centered image" /></p>
+
+<p><em>Note</em>: When repeating this process for each relevant line segment, always double-check that you have selected both 
+vertices of the line segment (not more, not less). This will ensure that you keep the 45° angle.</p>
+
+<h3 id="clip-the-shadow">4. Clip the Shadow</h3>
+
+<p>The shadow outline now has the exact required geometry but is still overlapping the background shape. To clip it:</p>
+
+<ul>
+  <li>Duplicate the background circle (select it, then press <code>Ctrl + D</code>).</li>
+  <li>Select the duplicated circle in the foreground and the shadow shape (<code>Shift + Click</code> on the southeast portion that 
+is visible).</li>
+  <li>Choose <em>Path</em> &gt; <em>Intersection</em> from the menu or press <code>Ctrl + *</code> to intersect both shapes.</li>
+</ul>
+
+<p><img src="/assets/content/material_04.png" alt="" class="ui big centered image" /></p>
+
+<h3 id="finishing-move">5. Finishing Move</h3>
+
+<p>Press <code>Down</code>, <code>Back</code>, <code>Down</code>, <code>Forward</code>, <code>High Kick</code>, <code>Low Kick</code> on the keyboard.</p>
+
+<p>Just kidding. To finish the icon</p>
+
+<ul>
+  <li>Select the shadow shape, choose a pure black fill (<code>#000000</code>) and give it an opacity of <code>30</code>.</li>
+  <li>Lower the shadow shape below the base shape by pressing <code>Page Down</code>.</li>
+</ul>
+
+<p>That’s it. You should end up with nice, flat Android icon with long shadows like the one shown at the top. Now, to 
+practice, go ahead and model the Apple icon ;-).</p>
+
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2016 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2016/09/12/creating-material-icons-with-long-shadows/',
+        'title': 'Creating Material Icons with Long Shadows'
+    });
+</script>
+
+</body>

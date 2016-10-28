@@ -260,11 +260,13 @@ up), but already it feels pretty awesome. I played around with it and liked it f
 <ul>
   <li>Having CI as an integrated part of a cloud-hosted repo feels very natural.</li>
   <li>The UI is nice and clean.</li>
-  <li>It’s currently <em>free</em> (with a limited quota of 300 build minutes / month).</li>
+  <li>It’s currently <em>free</em> (with a limited quota of build minutes).</li>
 </ul>
 
 <p>There is no word on the pricing yet, but I’m hoping Atlassian will challenge GitHub/Travis by continuing to offer a 
-basic free tier (limited build minutes, one instance) after Pipelines leaves beta. We’ll see ;-)</p>
+basic free tier (limited build minutes, one instance) after Pipelines leaves beta. We’ll see ;-)
+<strong>UPDATE 2016-10-25</strong>: Pipelines has left beta status now and <em>does offer a free tier</em> with 50 build minutes / month, 
+which seems like a very fair deal.</p>
 
 <p>Enough chatter - let’s look at how we would test the repos described above with Bitbucket Pipelines. Assuming the 
 remote of each repo lives on Bitbucket (i.e. at <code>https://bitbucket.org/&lt;user-or-org&gt;/&lt;repo&gt;.git</code>) and that you have 
