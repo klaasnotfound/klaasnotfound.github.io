@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Making Google Maps work with React – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta property="og:title" content="Making Google Maps work with React" />
+    <meta property="twitter:title" content="Making Google Maps work with React" />
+    
+    
+    <meta name="description" content="Embedding a Google Map on a website should be a piece of cake. On a standalone HTML page it is: You add a &lt;div 
+id="map"&gt;&lt;/div&gt; in the body and 
+one line of Javascript - et voilá, 
+you’re done. Recently, though, I wanted to use a Google Map in a ReactJS web app and found myself spending a 
+hideous amount of time troubleshooting several small problems.
+
+" />
+    <meta property="og:description" content="Embedding a Google Map on a website should be a piece of cake. On a standalone HTML page it is: You add a &lt;div 
+id="map"&gt;&lt;/div&gt; in the body and 
+one line of Javascript - et voilá, 
+you’re done. Recently, though, I wanted to use a Google Map in a ReactJS web app and found myself spending a 
+hideous amount of time troubleshooting several small problems.
+
+" />
+    
+    
+    <meta name="og:image" content="http://www.klaasnotfound.com/assets/content/gmaps_react_00.png" />
+    
+    <meta name="author" content="KlaasNotFound" />
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <a href="/" class="acr">KNF</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=Making+Google+Maps+work+with+React&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F11%2F06%2Fmaking-google-maps-work-with-react%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F11%2F06%2Fmaking-google-maps-work-with-react%2F&title=Making+Google+Maps+work+with+React&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F11%2F06%2Fmaking-google-maps-work-with-react%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F11%2F06%2Fmaking-google-maps-work-with-react%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=Making+Google+Maps+work+with+React&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F11%2F06%2Fmaking-google-maps-work-with-react%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F11%2F06%2Fmaking-google-maps-work-with-react%2F&title=Making+Google+Maps+work+with+React&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F11%2F06%2Fmaking-google-maps-work-with-react%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2016%2F11%2F06%2Fmaking-google-maps-work-with-react%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">6 November 2016</div>
+            <h2>Making Google Maps work with React</h2>
+            
+            <blockquote><b>tl;dr</b> Embedding a Google Map on a webpage is trivial, embedding it a ReactJS app is not. This post shows you (one way) how to correctly do the async initialization.</blockquote>
+            
+
+            <p>Embedding a Google Map on a website should be a piece of cake. On a standalone HTML page it is: You add a <code>&lt;div 
+id="map"&gt;&lt;/div&gt;</code> in the body and 
+<a href="https://developers.google.com/maps/documentation/javascript/examples/map-sync">one line of Javascript</a> - et voilá, 
+you’re done. Recently, though, I wanted to use a Google Map in a ReactJS web app and found myself spending a 
+hideous amount of time troubleshooting several small problems.</p>
+
+<p>There are plenty of articles that explain how to integrate Google Maps with React, in fact there are even 
+<a href="https://github.com/tomchentw/react-google-maps">several</a> <a href="https://github.com/istarkov/google-map-react">libraries</a> 
+that turn the Google Map and its overlay elements into React components. In contrast to most of the elaborate 
+solutions out there, I will aim to explain the <em>absolutely minimal setup</em> I found necessary to get the two working 
+together.</p>
+
+<p><img src="/assets/content/gmaps_react_00.png" alt="" class="ui big centered image" />
+<em>Play nice now, will ya?</em></p>
+
+<h3 id="the-problem">The Problem</h3>
+
+<p>In a normal HTML file, you would init the Google Map like so:</p>
+
+<div class="highlight"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Basic Google Map on a web page<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></div>
+
+<p>The Google Maps script is loaded <em>after</em> the static DOM has been initialized. When the script logic is executed, the 
+map <code>div</code> element exists and is populated with the Google Map.</p>
+
+<p>When writing a ReactJS app, things are not as simple. As you know, React operates on a performance-optimized <em>virtual 
+DOM</em>, which only (re-)renders the actual DOM when state changes occur. A simple React app will usually look like this:</p>
+
+<div class="highlight"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Simple React app<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;app&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;js/app.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></div>
+
+<p>The app <code>div</code> is populated once the React app has loaded and all components have been mounted. Now suppose that you want
+to load the Google Map in one of your React components, which would render the <code>&lt;div id="map"&gt;&lt;/div&gt;</code> element. If you 
+simply include the Google Maps script like in the above example, it won’t be able to find the map <code>div</code> when its init
+logic executes, because that <code>div</code> hasn’t been rendered yet.</p>
+
+<h3 id="asynchronous-loading">Asynchronous Loading</h3>
+
+<p>Since both the React app and the Google Maps take some time to load, we need to somehow ensure the Google Map is only
+created <em>after</em> the React app has been initialized and rendered into the DOM. At first glance, the <a href="https://developers.google.com/maps/documentation/javascript/examples/map-simple">asynchronous 
+version</a> of the Google Maps script 
+seems to be a promising solution:</p>
+
+<div class="highlight"><pre><code class="language-html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;callback=initMap&quot;</span>
+        <span class="na">async</span> <span class="na">defer</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
+
+<p>Notice the keywords <code>async defer</code>, which cause the script to be loaded only <a href="https://developer.mozilla.org/en/docs/Web/HTML/Element/script">after all synchronous scripts have 
+loaded</a>. Also notice the callback parameter in the 
+URL, which denotes the name of a global javascript function that should be invoked once the Google Maps script has 
+loaded. We could then programmatically instantiate the Google Map from an <code>initMap()</code> function within our React 
+component:</p>
+
+<div class="highlight"><pre><code class="language-javascript"><span class="kd">function</span> <span class="nx">initMap</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">),</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Does this work?</p>
+
+<div class="ui center aligned grid">
+    <div class="row">
+        <div class="ui move reveal">
+            <div class="visible content">
+                <img src="/assets/content/gmaps_react_01.png" class="ui medium image" />
+            </div>
+            <div class="hidden content">
+                <img src="https://media.giphy.com/media/3o7ZesJdQccI0sO3fy/giphy.gif" class="ui medium image" />
+                <div class="ui bottom left attached label"><a href="http://giphy.com/gifs/afv-funny-fail-lol-3o7ZesJdQccI0sO3fy">via GIPHY</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>Nope, unfortunately not. Even though the Google Maps script is only loaded after the React app script starts to 
+execute, this does not mean that the React app is fully mounted and rendered when the callback is invoked.</p>
+
+<h3 id="real-asynchronous-loading">Real Asynchronous Loading</h3>
+
+<p>Ok, so we need something better. Essentially, we want to load the Google Maps script only once the component that 
+needs it <em>has been mounted</em>. How do we achieve that? By means of a script loading function (such as
+<a href="https://github.com/filamentgroup/loadJS">loadJS</a>) which is called from within <code>componentDidMount()</code>.</p>
+
+<div class="highlight"><pre><code class="language-javascript"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    
+    <span class="p">...</span>
+    
+    <span class="nx">componentDidMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Connect the initMap() function within this class to the global window context,</span>
+        <span class="c1">// so Google Maps can invoke it</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">initMap</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">initMap</span><span class="p">;</span>
+        <span class="c1">// Asynchronously load the Google Maps script, passing in the callback reference</span>
+        <span class="nx">loadJS</span><span class="p">(</span><span class="s1">&#39;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;callback=initMap&#39;</span><span class="p">)</span>
+    <span class="p">},</span>
+    
+    <span class="nx">initMap</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">Map</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">refs</span><span class="p">.</span><span class="nx">map</span><span class="p">.</span><span class="nx">getDOMNode</span><span class="p">(),</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+    <span class="p">},</span>
+    
+    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+                    <span class="p">...</span>
+                    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">ref</span><span class="o">=</span><span class="s1">&#39;map&#39;</span> <span class="nx">style</span><span class="o">=&gt;&lt;</span><span class="err">⁄</span><span class="nx">div</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="err">⁄</span><span class="nx">div</span><span class="o">&gt;</span>
+            <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">loadJS</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">ref</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
+    <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">src</span><span class="p">;</span>
+    <span class="nx">script</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">ref</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">ref</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Notice the <code>ref='map'</code> attribute in the markup, which enables us to reference the correct <code>div</code> and pass it to the 
+Google Map constructor via <code>this.refs.map.getDOMNode()</code> once the DOM has been rendered. You can think of React 
+references for the virtual DOM as the equivalent of <code>id</code> references in a normal DOM.</p>
+
+<p><strong>That’s it</strong>. The Google map should now behave nicely and show up once your React component has been mounted!</p>
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2016 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2016/11/06/making-google-maps-work-with-react/',
+        'title': 'Making Google Maps work with React'
+    });
+</script>
+
+</body>
