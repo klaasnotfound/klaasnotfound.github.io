@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>How to Create a Smooth Ken Burns Effect Sequence in iMovie – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta property="og:title" content="How to Create a Smooth Ken Burns Effect Sequence in iMovie" />
+    <meta property="twitter:title" content="How to Create a Smooth Ken Burns Effect Sequence in iMovie" />
+    
+    
+    <meta name="description" content="The Ken Burns effect is by far the most prominent method to bring
+life into a still image that is shown as part of video. Maybe you didn’t know it was called ‘Ken Burns’ (after the
+famous documentary filmmaker), but you have definitely seen it. It
+basically is a sequence of one (or several) zoom and pan transitions within a still image (e.g. a painting).
+
+" />
+    <meta property="og:description" content="The Ken Burns effect is by far the most prominent method to bring
+life into a still image that is shown as part of video. Maybe you didn’t know it was called ‘Ken Burns’ (after the
+famous documentary filmmaker), but you have definitely seen it. It
+basically is a sequence of one (or several) zoom and pan transitions within a still image (e.g. a painting).
+
+" />
+    
+    
+    <meta name="og:image" content="http://www.klaasnotfound.com/assets/content/kenburns_00.jpg" />
+    
+    <meta name="author" content="KlaasNotFound" />
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <a href="/" class="acr">KNF</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=How+to+Create+a+Smooth+Ken+Burns+Effect+Sequence+in+iMovie&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F01%2F26%2Fsmooth-ken-burns-effect-sequence-in-imovie%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F01%2F26%2Fsmooth-ken-burns-effect-sequence-in-imovie%2F&title=How+to+Create+a+Smooth+Ken+Burns+Effect+Sequence+in+iMovie&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F01%2F26%2Fsmooth-ken-burns-effect-sequence-in-imovie%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F01%2F26%2Fsmooth-ken-burns-effect-sequence-in-imovie%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=How+to+Create+a+Smooth+Ken+Burns+Effect+Sequence+in+iMovie&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F01%2F26%2Fsmooth-ken-burns-effect-sequence-in-imovie%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F01%2F26%2Fsmooth-ken-burns-effect-sequence-in-imovie%2F&title=How+to+Create+a+Smooth+Ken+Burns+Effect+Sequence+in+iMovie&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F01%2F26%2Fsmooth-ken-burns-effect-sequence-in-imovie%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F01%2F26%2Fsmooth-ken-burns-effect-sequence-in-imovie%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">26 January 2017</div>
+            <h2>How to Create a Smooth Ken Burns Effect Sequence in iMovie</h2>
+            
+            <blockquote><b>tl;dr</b> Ken Burns is a great way to animate still images. Unfortunately, iMovie only allows you to pan and zoom from one point to another. I'll show how to smoothly chain several transitions.</blockquote>
+            
+
+            <p>The <a href="https://en.wikipedia.org/wiki/Ken_Burns_effect">Ken Burns effect</a> is by far the most prominent method to bring
+life into a still image that is shown as part of video. Maybe you didn’t know it was called ‘Ken Burns’ (after the
+<a href="https://en.wikipedia.org/wiki/Ken_Burns">famous documentary filmmaker</a>), but you have definitely seen it. It
+basically is a sequence of one (or several) zoom and pan transitions within a still image (e.g. a painting).</p>
+
+<p><img src="/assets/content/kenburns_01.jpg" alt="" class="ui big centered image" /></p>
+
+<p>Using Ken Burns in iMovie is straightforward: Drag an image into your project’s timeline (or into your media
+collection and then into the timeline), click on the still image in the timeline to select it, then click on the
+<em>Cropping</em> icon in the top right toolbar. Select <code>Ken Burns</code>.</p>
+
+<p><img src="/assets/content/kenburns_02.jpg" alt="" class="ui big centered image" /></p>
+
+<p>Now you can easily adjust the <em>Start</em> and <em>End</em> frame to define the zoom/pan transition, as shown in the first image
+above. Press play and you’ll see a smooth linear transition from one frame to the other. However, what if you want
+more than this one transition? Say you want to start with the zoomed-in portion of a historic painting, leave the
+camera there for a few seconds, then pan/zoom to a different area of the painting, again rest for a couple seconds and
+then zoom out to see the entire painting.</p>
+
+<p>Obviously this can be achieved by combining the effect several times. But how do we start one Ken Burns effect
+<em>exactly</em> where the previous one ended? A “multi-stop” Ken Burns is something that more advanced video editing
+programs support, but iMovie unfortunately doesn’t have this feature. Luckily, with just a few simple tweaks we can
+produce a smooth effect sequence even with iMovie. Here’s how to do it:</p>
+
+<h3 id="smooth-transitions-from-a-still-frame">Smooth Transitions from a Still Frame</h3>
+
+<p>Pick the still image and create the Ken Burns effect for the first transition.</p>
+
+<p><img src="/assets/content/kenburns_03.jpg" alt="" class="ui big centered image" /></p>
+
+<p>As stated above, we want the camera to remain still on the first area for a few seconds <em>before</em> the transition
+starts. To achieve this</p>
+
+<ul>
+  <li><code>Copy</code> and <code>paste</code> the timeline segment you just created.</li>
+  <li><code>Select</code> the left copy.</li>
+  <li>Instead of <code>Ken Burns</code> choose <code>Crop to Fill</code> in the toolbar. Hit <code>Enter</code>.</li>
+</ul>
+
+<p>This will cause the <em>Start</em> frame to to become the fixed crop frame for the entire segment.
+You should now have two segments in the timeline, the first with no movement and the second with the transition you
+defined in the beginning.</p>
+
+<p><img src="/assets/content/kenburns_04.jpg" alt="" class="ui big centered image" /></p>
+
+<p>Note that you can adjust the duration of these segments at will - the transition between the still image and the
+transition will remain seamless.</p>
+
+<h3 id="smooth-transitions-to-a-still-frame">Smooth Transitions to a Still Frame</h3>
+
+<p>Now let’s have the camera rest on the <em>End</em> frame of the <code>Ken Burns</code> transition we defined. Again</p>
+
+<ul>
+  <li><code>Copy</code> and <code>paste</code> the timeline segment with the transition.</li>
+  <li><code>Select</code> the right copy.</li>
+  <li>
+    <p><code>Swap</code> the <em>Start</em> and <em>End</em> frame by clicking on what looks like a <em>Refresh</em> icon in the toolbar.
+<img src="/assets/content/kenburns_05.jpg" alt="" class="ui big centered image" /></p>
+  </li>
+  <li>Instead of <code>Ken Burns</code> choose <code>Crop to Fill</code> in the toolbar. Hit <code>Enter</code>.</li>
+</ul>
+
+<p>The trick here is to swap <em>Start</em> and <em>End</em>, otherwise the camera would jump back to the previous crop area.</p>
+
+<h3 id="chaining-multiple-transitions">Chaining Multiple Transitions</h3>
+
+<p>Now you have all the tools you need. You can create arbitrary combinations of still segments (with <code>Crop to
+Fill</code>) and motion segments (with <code>Ken Burns</code>). Whenever you need to add a new segment, simply copy and paste the
+previous one. If the previous one was a still segment, you can just switch to Ken Burns. If it was a itself a Ken
+Burns segment, you need to swap <em>Start</em> and <em>End</em> before adjusting its frames.</p>
+
+<p>Here’s what a sequence of smooth transitions looks like:</p>
+
+<div class="ui small embed" data-source="vimeo" data-id="208312762" data-placeholder="/assets/content/kenburns_06.jpg">
+</div>
+
+<h3 id="in-a-nutshell">In a Nutshell</h3>
+
+<p>It’s possible to do smooth “multi-stop” Ken Burns transitions with iMovie. Simply copy and paste the segments,
+and swap the <em>Start</em> and <em>End</em> areas of the copy. If you want still segments, change the effect to <code>Crop to Fill</code>.
+That’s it.</p>
+
+<p>PS: In case you were wondering - the painting is
+<a href="https://commons.wikimedia.org/wiki/File:Pierre-Auguste_Renoir,_Le_Moulin_de_la_Galette.jpg">“Le Moulin de la Galette”</a>
+by Renoir.</p>
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2017 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2017/01/26/smooth-ken-burns-effect-sequence-in-imovie/',
+        'title': 'How to Create a Smooth Ken Burns Effect Sequence in iMovie'
+    });
+</script>
+
+</body>

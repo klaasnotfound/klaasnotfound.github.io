@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Twitter popup
     $('.ui .dropdown').dropdown({on: 'hover'});
-    
+
     // Fix menu when passed
     $('.masthead').visibility({
         once: false,
@@ -15,4 +15,8 @@ $(document).ready(function () {
 
     // Make social buttons sticky
     $('.ui.sticky').sticky({context: '#content'});
+
+
+    // Enable any embeds
+    $('.ui .embed').embed();
 });

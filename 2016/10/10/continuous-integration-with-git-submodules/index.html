@@ -279,15 +279,15 @@ kind of image / environment the build should run in and what is to be tested. Le
 <em>Bar</em> from above are simple <em>Node.js</em> projects and that all unit tests are run by invoking <code>npm test</code>. Then, a valid 
 <code>bitbucket-pipelines.yml</code> would look like this:</p>
 
-<div class="highlight"><pre><code class="language-yaml"><span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node</span>
+<div class="highlight"><pre><code class="language-yaml"><span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">node</span>
 
-<span class="l-Scalar-Plain">pipelines</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">step</span><span class="p-Indicator">:</span>
-        <span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm --version</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm install</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm test</span></code></pre></div>
+<span class="l l-Scalar l-Scalar-Plain">pipelines</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">step</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm --version</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm install</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm test</span></code></pre></div>
 
 <p>Simple enough, really. Once you push this file to the repo (and on every subsequent push or pull request), Pipelines 
 will spring to life, run your tests and decorate your branches with a test status. You can follow the log output if 
@@ -317,16 +317,16 @@ Pipelines to pull submodules, too, this copy will <em>not</em> contain the <code
 
 <p>So surely we can just tell Pipelines to first pull all the submodules, too, right? You bet!</p>
 
-<div class="highlight"><pre><code class="language-yaml"><span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node</span>
+<div class="highlight"><pre><code class="language-yaml"><span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">node</span>
 
-<span class="l-Scalar-Plain">pipelines</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">step</span><span class="p-Indicator">:</span>
-        <span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">git submodule update --init --recursive</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm --version</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm install</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm test</span></code></pre></div>
+<span class="l l-Scalar l-Scalar-Plain">pipelines</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">step</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git submodule update --init --recursive</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm --version</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm install</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm test</span></code></pre></div>
 
 <p>The <code>git submodule update --init --recursive</code> tells Pipelines to first and foremost clone all submodules contained 
 within the repo, which is what we want. Let’s push again and trigger a new build:</p>
@@ -355,7 +355,7 @@ reasons:</p>
 <p>Let’s think about how authentication works on your machine. In your <code>~/.ssh/config</code> file you probably have an entry 
 similar to this:</p>
 
-<div class="highlight"><pre><code class="language-bash"><span class="c"># My Bitbucket configuration</span>
+<div class="highlight"><pre><code class="language-bash"><span class="c1"># My Bitbucket configuration</span>
 Host personal-bitbucket
    HostName bitbucket.org
    User git
@@ -367,7 +367,7 @@ using so-called
 <a href="https://confluence.atlassian.com/bitbucket/use-deployment-keys-294486051.html">Deployment Keys</a>.
 So here is how we fix our build, step by step.</p>
 
-<h4 id="generate-a-deployment-key">1. Generate a Deployment Key</h4>
+<h4 id="1-generate-a-deployment-key">1. Generate a Deployment Key</h4>
 
 <p>In your console navigate to <code>~/.ssh/</code> and run</p>
 
@@ -381,13 +381,13 @@ for your automated script here. The filename should have <em>no extension</em> a
 <p>Now is a good time to add this key to your <code>~/.ssh/config</code> file (we will need it later). Go ahead and create the 
 following entry:</p>
 
-<div class="highlight"><pre><code class="language-bash"><span class="c"># Bitbucket configuration for continuous integration account</span>
+<div class="highlight"><pre><code class="language-bash"><span class="c1"># Bitbucket configuration for continuous integration account</span>
 Host myproject-ci-bitbucket
    HostName bitbucket.org
    User git
    IdentityFile ~/.ssh/id_rsa_myproject_ci</code></pre></div>
 
-<h4 id="add-the-deployment-key-to-bitbucket">2. Add the Deployment Key to Bitbucket</h4>
+<h4 id="2-add-the-deployment-key-to-bitbucket">2. Add the Deployment Key to Bitbucket</h4>
 
 <p>Go to the <em>Settings</em> &gt; <em>Deployment Keys</em> section of your <em>Shared</em> repository on Bitbucket. Click on <em>Add Key</em>, give 
 it a <em>Label</em> and paste the content of the <em>public keyfile</em> (<code>id_rsa_myproject_ci.pub</code>) in the <em>Key</em> field.</p>
@@ -396,7 +396,7 @@ it a <em>Label</em> and paste the content of the <em>public keyfile</em> (<code>
 
 <p>After saving the key, our CI account will now have read-only access to the <em>Shared</em> repo. Sweet!</p>
 
-<h4 id="add-the-private-key-as-an-environment-variable">3. Add the Private Key as an Environment Variable</h4>
+<h4 id="3-add-the-private-key-as-an-environment-variable">3. Add the Private Key as an Environment Variable</h4>
 
 <p>The build script will need to pull the repo using the SSH identity we just created, so at one point, it must have 
 access to the private key file. Since we don’t want to put the private key in the source code, the cleanest way is to
@@ -413,7 +413,7 @@ the key is never actually visible in the settings.</p>
 
 <p><img src="/assets/content/submodules_08.png" alt="" class="ui huge centered image" /></p>
 
-<h4 id="update-the-build-script">4. Update the Build Script</h4>
+<h4 id="4-update-the-build-script">4. Update the Build Script</h4>
 
 <p>Now that we have our deployment key in place and the private key at the ready, it’s time to put everything together. 
 In a nutshell, once the virtual machine has booted up, we want to</p>
@@ -426,21 +426,21 @@ In a nutshell, once the virtual machine has booted up, we want to</p>
 
 <p>And here is how we do it:</p>
 
-<div class="highlight"><pre><code class="language-yaml"><span class="l-Scalar-Plain">image</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">node</span>
+<div class="highlight"><pre><code class="language-yaml"><span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">node</span>
 
-<span class="l-Scalar-Plain">pipelines</span><span class="p-Indicator">:</span>
-  <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
-    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">step</span><span class="p-Indicator">:</span>
-        <span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mkdir ~/.ssh</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">echo -e $MYPROJECT_CI_PRIVATE_KEY &gt; ~/.ssh/id_rsa_myproject_ci</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">chmod 600 ~/.ssh/id_rsa_myproject_ci</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">echo -e &quot;Host myproject-ci-bitbucket\n   HostName bitbucket.org\n   User git\n   IdentityFile ~/.ssh/id_rsa_myproject_ci\n   StrictHostKeyChecking no&quot; &gt; ~/.ssh/config</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">chmod 600 ~/.ssh/config</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">git submodule update --init --recursive</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm --version</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm install</span>
-          <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">npm test</span></code></pre></div>
+<span class="l l-Scalar l-Scalar-Plain">pipelines</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">default</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">step</span><span class="p p-Indicator">:</span>
+        <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mkdir ~/.ssh</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo -e $MYPROJECT_CI_PRIVATE_KEY &gt; ~/.ssh/id_rsa_myproject_ci</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">chmod 600 ~/.ssh/id_rsa_myproject_ci</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo -e &quot;Host myproject-ci-bitbucket\n   HostName bitbucket.org\n   User git\n   IdentityFile ~/.ssh/id_rsa_myproject_ci\n   StrictHostKeyChecking no&quot; &gt; ~/.ssh/config</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">chmod 600 ~/.ssh/config</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git submodule update --init --recursive</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm --version</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm install</span>
+          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm test</span></code></pre></div>
 
 <p>Are we done? Almost. There is one tiny thing missing: The submodule we added to the <em>Foo</em> and <em>Bar</em> repos back in the 
 day still uses the old <code>&lt;shared-repo-url&gt;</code>. Let’s go ahead and update that. Instead of using some <code>git submodule</code> 

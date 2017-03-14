@@ -158,15 +158,15 @@ together.</p>
 <p>In a normal HTML file, you would init the Google Map like so:</p>
 
 <div class="highlight"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-  <span class="nt">&lt;head&gt;</span>
-    <span class="nt">&lt;title&gt;</span>Basic Google Map on a web page<span class="nt">&lt;/title&gt;</span>
-  <span class="nt">&lt;/head&gt;</span>
-  <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-  <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span></code></pre></div>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Basic Google Map on a web page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;map&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div>
 
 <p>The Google Maps script is loaded <em>after</em> the static DOM has been initialized. When the script logic is executed, the 
 map <code>div</code> element exists and is populated with the Google Map.</p>
@@ -175,15 +175,15 @@ map <code>div</code> element exists and is populated with the Google Map.</p>
 DOM</em>, which only (re-)renders the actual DOM when state changes occur. A simple React app will usually look like this:</p>
 
 <div class="highlight"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-  <span class="nt">&lt;head&gt;</span>
-    <span class="nt">&lt;title&gt;</span>Simple React app<span class="nt">&lt;/title&gt;</span>
-  <span class="nt">&lt;/head&gt;</span>
-  <span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;app&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;js/app.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-  <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span></code></pre></div>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Simple React app<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;app&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;js/app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div>
 
 <p>The app <code>div</code> is populated once the React app has loaded and all components have been mounted. Now suppose that you want
 to load the Google Map in one of your React components, which would render the <code>&lt;div id="map"&gt;&lt;/div&gt;</code> element. If you 
@@ -197,8 +197,8 @@ created <em>after</em> the React app has been initialized and rendered into the 
 version</a> of the Google Maps script 
 seems to be a promising solution:</p>
 
-<div class="highlight"><pre><code class="language-html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;callback=initMap&quot;</span>
-        <span class="na">async</span> <span class="na">defer</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;callback=initMap&quot;</span>
+        <span class="na">async</span> <span class="na">defer</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 
 <p>Notice the keywords <code>async defer</code>, which cause the script to be loaded only <a href="https://developer.mozilla.org/en/docs/Web/HTML/Element/script">after all synchronous scripts have 
 loaded</a>. Also notice the callback parameter in the 
@@ -255,7 +255,7 @@ needs it <em>has been mounted</em>. How do we achieve that? By means of a script
             <span class="k">return</span> <span class="p">(</span>
                 <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
                     <span class="p">...</span>
-                    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">ref</span><span class="o">=</span><span class="s1">&#39;map&#39;</span> <span class="nx">style</span><span class="o">=&gt;&lt;</span><span class="err">⁄</span><span class="nx">div</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">ref</span><span class="o">=</span><span class="s2">&quot;map&quot;</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;height: &#39;500px&#39;, width: &#39;500px&#39;&quot;</span><span class="o">&gt;&lt;</span><span class="err">⁄</span><span class="nx">div</span><span class="o">&gt;</span>
                 <span class="o">&lt;</span><span class="err">⁄</span><span class="nx">div</span><span class="o">&gt;</span>
             <span class="p">);</span>
     <span class="p">}</span>

@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/</loc>
-    <lastmod>2016-11-06T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2016/10/10/continuous-integration-with-git-submodules/</loc>
-    <lastmod>2016-10-10T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2016/09/12/creating-material-icons-with-long-shadows/</loc>
-    <lastmod>2016-09-12T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2016/08/09/calculating-the-k-factor-from-app-invites/</loc>
-    <lastmod>2016-08-09T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2016/07/15/iphone-6s-svg-mockup/</loc>
-    <lastmod>2016-07-15T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2016/07/02/nexus-5x-svg-mockup/</loc>
-    <lastmod>2016-07-02T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2016/06/05/creating-cmyk-prepress-pdfs-with-inkscape-and-scribus/</loc>
-    <lastmod>2016-06-05T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2016/05/27/location-on-android-stop-mocking-me/</loc>
-    <lastmod>2016-05-27T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2015/08/24/tracking-the-application-lifecycle-on-android/</loc>
-    <lastmod>2015-08-24T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2015/05/24/nexus-5-vector-mockup/</loc>
-    <lastmod>2015-05-24T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2015/05/09/a-solution-to-the-imagebutton-problem/</loc>
-    <lastmod>2015-05-09T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/2015/05/07/using-snappydb-for-caching/</loc>
-    <lastmod>2015-05-07T00:00:00+02:00</lastmod>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/about/</loc>
-  </url>
-  <url>
-    <loc>http://www.klaasnotfound.com/</loc>
-  </url>
+<url>
+<loc>http://www.klaasnotfound.com/2017/01/26/smooth-ken-burns-effect-sequence-in-imovie/</loc>
+<lastmod>2017-01-26T00:00:00+01:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/</loc>
+<lastmod>2016-11-06T00:00:00+01:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2016/10/10/continuous-integration-with-git-submodules/</loc>
+<lastmod>2016-10-10T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2016/09/12/creating-material-icons-with-long-shadows/</loc>
+<lastmod>2016-09-12T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2016/08/09/calculating-the-k-factor-from-app-invites/</loc>
+<lastmod>2016-08-09T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2016/07/15/iphone-6s-svg-mockup/</loc>
+<lastmod>2016-07-15T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2016/07/02/nexus-5x-svg-mockup/</loc>
+<lastmod>2016-07-02T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2016/06/05/creating-cmyk-prepress-pdfs-with-inkscape-and-scribus/</loc>
+<lastmod>2016-06-05T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2016/05/27/location-on-android-stop-mocking-me/</loc>
+<lastmod>2016-05-27T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2015/08/24/tracking-the-application-lifecycle-on-android/</loc>
+<lastmod>2015-08-24T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2015/05/24/nexus-5-vector-mockup/</loc>
+<lastmod>2015-05-24T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2015/05/09/a-solution-to-the-imagebutton-problem/</loc>
+<lastmod>2015-05-09T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/2015/05/07/using-snappydb-for-caching/</loc>
+<lastmod>2015-05-07T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/about/</loc>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/</loc>
+</url>
+<url>
+<loc>http://www.klaasnotfound.com/assets/content/RoundedPolygons.pdf</loc>
+<lastmod>2016-06-27T21:52:04+02:00</lastmod>
+</url>
 </urlset>
