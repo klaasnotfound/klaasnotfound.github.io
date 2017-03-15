@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en-EN" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>Setting up a Proper Multilingual Site with GitHub Pages and Jekyll – KlaasNotFound – Ramblings about software, design and music.</title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="/assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-114x114.png">
+    
+    <meta property="og:title" content="Setting up a Proper Multilingual Site with GitHub Pages and Jekyll" />
+    <meta property="twitter:title" content="Setting up a Proper Multilingual Site with GitHub Pages and Jekyll" />
+    
+    
+    <meta name="description" content="Jekyll and GitHub Pages are a match made in heaven. The idea of a “flat-file CMS” whose content is compiled into
+static files that are pushed to a repository and then served as a public website is simply beautiful. Not just that,
+but it fixes everything that is wrong with normal content management systems. Versioning comes out of the box. There
+is no need to worry about PHP vulnerabilities, SQL injections etc. because - uh - we’re just serving static files
+here. If you have ever had to maintain a Wordpress installation you know the pain. Performance is a blast because -
+uh - we’re just serving static files ;-). In fact, when you host your static site (with a correctly configured domain
+record) on GitHub Pages everything is
+backed by their super fast CDN by default!
+
+" />
+    <meta property="og:description" content="Jekyll and GitHub Pages are a match made in heaven. The idea of a “flat-file CMS” whose content is compiled into
+static files that are pushed to a repository and then served as a public website is simply beautiful. Not just that,
+but it fixes everything that is wrong with normal content management systems. Versioning comes out of the box. There
+is no need to worry about PHP vulnerabilities, SQL injections etc. because - uh - we’re just serving static files
+here. If you have ever had to maintain a Wordpress installation you know the pain. Performance is a blast because -
+uh - we’re just serving static files ;-). In fact, when you host your static site (with a correctly configured domain
+record) on GitHub Pages everything is
+backed by their super fast CDN by default!
+
+" />
+    
+    
+    <meta name="og:image" content="http://www.klaasnotfound.com/assets/content/ghpages_i18n_00.png" />
+    
+    <meta name="author" content="KlaasNotFound" />
+        <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/monokai.css"/>
+    
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<!-- Top Menu -->
+<div class="ui top fixed hidden main menu">
+    <div class="ui container">
+        <a href="/" class="acr">KNF</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Masthead -->
+<div class="ui main container masthead">
+    <div class="ui stackable grid">
+        <div class="three wide column">
+            <div class="ui dropdown">
+                <a href="https://twitter.com/klaasnotfound" target="_blank" class="ui tiny image">
+                    <img src="/assets/img/klaas_header.png" style="margin: 16px 0 0 16px;"/>
+                </a>
+                <div class="menu">
+                    <div class="item">
+                        <a class="twitter-timeline" href="https://twitter.com/klaasnotfound"
+                           data-widget-id="727446477300240384">Tweets von @klaasnotfound </a>
+                        <script>!function (d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");</script>
+                    </div>
+                    <div class="item"
+                         onClick="window.open('https://twitter.com/intent/follow?screen_name=klaasnotfound');">
+                        Follow me on <i class="twitter icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide center aligned column">
+            <a href="/" class="ui large centered image">
+                <img src="/assets/img/klaasnotfound_title.svg"/>
+            </a>
+            <h3>I create things. I blog about it. <span class="underline">Sometimes.</span></h3>
+        </div>
+    </div>
+</div>
+
+<!-- Page Menu -->
+<div class="ui page menu">
+    <div class="ui container">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="ui main page">
+    <div class="ui text container">
+        <div class="ui segment" id="content">
+            <div class="right social ui rail">
+    <div class="ui sticky segment">
+        <a href="https://twitter.com/intent/tweet?text=Setting+up+a+Proper+Multilingual+Site+with+GitHub+Pages+and+Jekyll&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F02%2F16%2Fproper-multilingual-site-with-github-pages-and-jekyll%2F&via=klaasnotfound&related=klaasnotfound" rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F02%2F16%2Fproper-multilingual-site-with-github-pages-and-jekyll%2F&title=Setting+up+a+Proper+Multilingual+Site+with+GitHub+Pages+and+Jekyll&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F02%2F16%2Fproper-multilingual-site-with-github-pages-and-jekyll%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F02%2F16%2Fproper-multilingual-site-with-github-pages-and-jekyll%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+    </div>
+</div>
+
+<div class="social bar">
+    <div class="ui four column divided center aligned grid">
+        <div class="column">
+            <a href="https://twitter.com/intent/tweet?text=Setting+up+a+Proper+Multilingual+Site+with+GitHub+Pages+and+Jekyll&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F02%2F16%2Fproper-multilingual-site-with-github-pages-and-jekyll%2F&via=klaasnotfound&related=klaasnotfound"
+               rel="nofollow" target="_blank" title="Share on Twitter"><i class="large twitter icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F02%2F16%2Fproper-multilingual-site-with-github-pages-and-jekyll%2F&title=Setting+up+a+Proper+Multilingual+Site+with+GitHub+Pages+and+Jekyll&source=http://www.klaasnotfound.com" rel="nofollow" target="_blank" title="Share on LinkedIn"><i class="large linkedin icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://facebook.com/sharer.php?u=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F02%2F16%2Fproper-multilingual-site-with-github-pages-and-jekyll%2F" rel="nofollow" target="_blank" title="Share on Facebook"><i class="large facebook icon"></i></a>
+        </div>
+        <div class="column">
+            <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnotfound.com%2F2017%2F02%2F16%2Fproper-multilingual-site-with-github-pages-and-jekyll%2F" rel="nofollow" target="_blank" title="Share on Google+"><i class="large google plus icon"></i></a>
+        </div>
+    </div>
+</div>
+            <div class="ui big teal ribbon label">16 February 2017</div>
+            <h2>Setting up a Proper Multilingual Site with GitHub Pages and Jekyll</h2>
+            
+            <blockquote><b>tl;dr</b> Deploying multilingual sites with custom collections on GitHub Pages can be a bit tricky. This post shows you how to make it work.</blockquote>
+            
+
+            <p>Jekyll and GitHub Pages are a match made in heaven. The idea of a “flat-file CMS” whose content is compiled into
+static files that are pushed to a repository and then served as a public website is simply beautiful. Not just that,
+but it fixes everything that is wrong with normal content management systems. Versioning comes out of the box. There
+is no need to worry about PHP vulnerabilities, SQL injections etc. because - uh - we’re just serving static files
+here. If you have ever had to maintain a Wordpress installation you know the pain. Performance is a blast because -
+uh - we’re just serving static files ;-). In fact, when you host your static site (with a correctly configured domain
+record) on GitHub Pages everything is
+<a href="https://github.com/blog/1715-faster-more-awesome-github-pages">backed by their super fast CDN</a> by default!</p>
+
+<p><img src="/assets/content/ghpages_i18n_01.jpg" alt="" class="ui big centered image" />
+<em>We’re just serving static files here.</em></p>
+
+<p>The only downside of the Jekyll + GitHub workflow is that it has a very steep learning curve for non-technical folks.
+This is probably why most of GitHub Pages are either tech project pages or personal tech blogs (like this one).
+However, the capabilities of GitHub Pages go far beyond simple blogs. In fact there is <a href="https://jekyllrb.com/docs/plugins/#available-plugins">a plethora of useful Jekyll
+plugins</a> that enable you to create rather complex websites.</p>
+
+<h3 id="i18n">I18N</h3>
+
+<p>When I was working on a bilingual website to be hosted on GitHub Pages, I was thrilled to find out there are at least
+three <a href="https://www.google.de/search?q=jekyll+i18n">serious-looking internationalization plugins</a>).
+I needed some advanced capabilities like translated permalinks so I went with the
+<a href="https://github.com/Anthony-Gaudino/jekyll-multiple-languages-plugin"><code>jekyll-multiple-languages-plugin</code></a>,
+which looked like the most mature solution at the time. It did take me about 90% of the way, at which point I had to
+dive into the plugin code and modify some things to fit my needs. In the following I’ll show my complete, working
+setup in the hope that you may find it (or parts of it) useful.</p>
+
+<h4 id="requirements">Requirements</h4>
+
+<p>I had the following requirements for the website:</p>
+
+<ol>
+  <li>Every language (including the default!) resides in its own subfolder (<code>/en/</code>, <code>/de/</code> etc.).</li>
+  <li>The central <code>index.html</code> redirects to the correct subfolder based on the browser language.</li>
+  <li>Every post and page can have its own permalink (<code>/en/about-us/</code>, <code>/de/ueber-uns/</code> etc.).</li>
+  <li>Custom collections are translated just like the <code>_posts</code> collection.</li>
+</ol>
+
+<p>The <code>jekyll-multiple-languages-plugin</code> was capable of doing most of this, except for
+<a href="https://github.com/Anthony-Gaudino/jekyll-multiple-languages-plugin/issues/86">1.</a> and
+<a href="https://github.com/Anthony-Gaudino/jekyll-multiple-languages-plugin/issues/87">4.</a></p>
+
+<h4 id="the-fix">The Fix</h4>
+
+<p>The modified version of the plugin fixes these issues and can be found
+<a href="https://gist.github.com/klaasnotfound/f74d4b96ae7da170b639ca0b1c58c66f">here</a>, with usage instructions
+<a href="https://github.com/Anthony-Gaudino/jekyll-multiple-languages-plugin/issues/86#issuecomment-276187549">here</a>.</p>
+
+<h3 id="basic-setup">Basic Setup</h3>
+
+<p>A clean Jekyll site in English and German should have the following structure:</p>
+
+<div class="highlight"><pre><code>mysite/
+├ _i18n/
+  ├ de/
+  ├ en/
+  ├ de.yml
+  └ en.yml
+├ _includes/
+├ _layouts/
+├ _plugins/
+├ _posts/
+├ assets/
+├ _config.yml
+├ base.html
+├ CNAME
+└ index.html
+</code></pre></div>
+
+<p>Most of these files and folders should be familiar - <code>_includes</code>, <code>_layouts</code> and <code>_posts</code> are just regular Jekyll
+folders, <code>assets</code> contains all static assets (images, CSS and Javascript files) and <code>_plugins</code> contains the modified
+plugin you downloaded. The <code>CNAME</code> file is needed when you
+<a href="https://help.github.com/articles/using-a-custom-domain-with-github-pages/">deploy your site to GitHub Pages with a custom domain</a>.
+Let’s look at the remaining items:</p>
+
+<ul>
+  <li><code>_i18n</code> is a folder introduced by the <code>jekyll-multiple-languages-plugin</code>. It contains the translations of
+individual strings in the <code>*.yml</code> files as well as translated pages and collection documents in the respective
+subfolders.</li>
+  <li><code>index.html</code> is the default page that will be put into each of the language subfolders. <em>Caution:</em> It no longer serves
+as the central <code>index.html</code> for your site.</li>
+  <li><code>base.html</code> is a file I introduced to fix the absence of a central <code>index.html</code>. The plugin takes this file and
+makes it the <code>index.html</code> of your generated <code>_site</code>. It can (and should) contain language redirect logic.</li>
+</ul>
+
+<h3 id="a-minimal-site">A Minimal Site</h3>
+
+<p>Let’s work with a small example - an English and German site with a welcome page and a proper redirect.</p>
+
+<p><code>_config.yml</code></p>
+<div class="highlight"><pre><code class="language-yaml"><span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://www.example.com</span>
+
+<span class="l l-Scalar l-Scalar-Plain">languages</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;en&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;de&quot;</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">exclude_from_localizations</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;assets&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;CNAME&quot;</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">defaultLang</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">en</span>
+<span class="l l-Scalar l-Scalar-Plain">languageNames</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">de</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Deutsch</span>
+  <span class="l l-Scalar l-Scalar-Plain">en</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">English</span>
+
+<span class="nn">...</span></code></pre></div>
+
+<p><code>_i18n/de.yml</code></p>
+<div class="highlight"><pre><code class="language-yaml"><span class="l l-Scalar l-Scalar-Plain">site</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Meine Beispiel-Webseite</span>
+  <span class="l l-Scalar l-Scalar-Plain">tagline</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Mit gutem Beispiel voran!</span>
+  <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Diese Beispiel-Webseite wird Sie begeistern!</span>
+  <span class="l l-Scalar l-Scalar-Plain">keywords</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Beispiel, Webseite, toll</span>
+
+<span class="l l-Scalar l-Scalar-Plain">main</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">welcomeSection</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">anchor</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">willkommen</span>
+    <span class="l l-Scalar l-Scalar-Plain">heading</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Willkommen auf dieser tollen Webseite!</span>
+    <span class="l l-Scalar l-Scalar-Plain">p1</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Hunderttausende Menschen sind von dieser Seite begeistert. Sie auch?</span></code></pre></div>
+
+<p><code>_i18n/en.yml</code></p>
+<div class="highlight"><pre><code class="language-yaml"><span class="l l-Scalar l-Scalar-Plain">site</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">My Example Website</span>
+  <span class="l l-Scalar l-Scalar-Plain">tagline</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Setting a good example!</span>
+  <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">This example website will amaze you!</span>
+  <span class="l l-Scalar l-Scalar-Plain">keywords</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">example, website, amazing</span>
+
+<span class="l l-Scalar l-Scalar-Plain">main</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">welcomeSection</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">anchor</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">welcome</span>
+    <span class="l l-Scalar l-Scalar-Plain">heading</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Welcome to this marvelous webseite.</span>
+    <span class="l l-Scalar l-Scalar-Plain">p1</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Hundreds of thousands of people are amazed by this site. Are you?</span></code></pre></div>
+
+<p><code>index.html</code></p>
+<div class="highlight"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;{{ site.lang }}&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{% t site.description %}&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;keywords&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{% t site.keywords %}&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{% t site.name %} - {% t site.tagline %}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">section</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;{% t main.welcomeSection.anchor%}&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{% t main.welcomeSection.heading %}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{% t main.welcomeSection.p1 %}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div>
+
+<p><code>base.html</code></p>
+<div class="highlight"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Amazing Example Website<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">lang</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">language</span> <span class="o">||</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userLanguage</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;de&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;/de/&#39;</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s1">&#39;/en/&#39;</span><span class="p">;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div>
+
+<p>A couple things are worth noting:</p>
+
+<ul>
+  <li>Usually the contents of <code>index.html</code> would be modularized into layouts and includes. For simplicity everything is in
+one file here.</li>
+  <li>Our <code>index.html</code> uses translated strings in both the header (meta data) and the body (content of the welcome
+page). You can use an arbitrary structure in your YAML files, just make sure it’s the same structure for every
+language file, otherwise Jekyll will complain about missing strings at compile time.</li>
+  <li>We can translate everything down to anchor IDs, so in the above example you can link to
+<code>www.example.com/de/#willkommen</code> as well as <code>www.example.com/en/#welcome</code>.</li>
+  <li>Our <code>base.html</code> is excluded from the plugin translation process on purpose, so we have to put in any meta data (title,
+description etc.) <em>verbatim</em>, in the default language.</li>
+  <li>The redirect in <code>base.html</code> uses Javascript. A better solution would be to do a server side redirect based on the
+request <code>Accept-Language</code> header. Unfortunately, it’s not possible to configure server redirects with GitHub
+Pages, so Javascript is the best we can do.</li>
+</ul>
+
+<h3 id="adding-a-page">Adding a Page</h3>
+
+<p>Now let’s add an “About us” page in English and German.</p>
+
+<div class="highlight"><pre><code>mysite/
+├ _i18n/
+  ├ de/
+    └ about.md
+  ├ en/
+    └ about.md
+  └ ...
+├ about.md
+└ ...
+</code></pre></div>
+
+<p><code>about.md</code></p>
+<div class="highlight"><pre><code>---
+layout: page
+title: pages.about
+
+namespace: about
+permalink: /about-us/
+permalink_de: /ueber-uns/
+---
+
+{% tf about.md %}
+</code></pre></div>
+
+<p><code>_i18n/de/about.md</code></p>
+<div class="highlight"><pre><code>Wir sind ein wundervolles Team verrückter Visionäre.
+</code></pre></div>
+
+<p><code>_i18n/en/about.md</code></p>
+<div class="highlight"><pre><code>We are a wonderful team of crazy visionaries.
+</code></pre></div>
+
+<p>Note:</p>
+
+<ul>
+  <li>The about page is only defined once (in the root directory) and filled with content of the respective language via the
+<code>{% tf ... %}</code> (translate file) tag on each translation pass.</li>
+  <li>The front-matter <code>title</code> has to be defined in the language-specific <code>*.yml</code> files. This may seem confusing but
+actually makes sense given that it’s a Liquid variable that may be used in templates.</li>
+  <li>The <code>namespace</code> is optional. Actually, the term ‘namespace’ is a bit misleading. It was introduced by the original
+plugin, so I didn’t want to override it. You can use it to insert translated links with the <code>{% tl ... %}</code>
+(translate link) tag.</li>
+</ul>
+
+<h3 id="adding-a-language-switcher">Adding a Language Switcher</h3>
+
+<p>Let’s add the possibility to switch the language at the bottom of our <code>index.html</code>:</p>
+
+<div class="highlight"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;{{ site.lang }}&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    ...
+    <span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>{{ site.languageNames[site.lang] }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        {% for lang in site.languageNames %}
+        {% if lang[0] == site.lang %} {% continue %} {% endif %}
+        {% if page.namespace %}
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% tl {{ page.namespace }} {{ lang[0] }} %}&quot;</span><span class="p">&gt;</span>{{ lang[1] }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        {% else %}
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ site.baseurl_root }}/{{ lang[0] }}/&quot;</span><span class="p">&gt;</span>{{ lang[1] }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        {% endif %}
+        {% endfor %}
+    <span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div>
+
+<p>Note:</p>
+
+<ul>
+  <li>The switcher code works on any page, not just <code>index.html</code>. For a real website you should put it in a <code>footer.html</code>
+include file and reference that in your layout.</li>
+  <li>The currently active language is written out first, with a CSS class <code>.active</code> for highlighting.</li>
+  <li>The other languages are enumerated as links, in the order in which they are defined in <code>_config.yml</code>.</li>
+  <li>The links point to the translated version of the current page if it exists or the language’s <code>index.html</code> otherwise.</li>
+  <li>On a real website you probably want to make the switcher a bit prettier. If you’re using Bootstrap I recommend
+using a <a href="http://getbootstrap.com/components/#btn-dropdowns-dropup">dropup menu</a>. Here’s what that looks like on the
+site I built:</li>
+</ul>
+
+<p><img src="/assets/content/ghpages_i18n_02.png" alt="" class="ui centered image" /></p>
+
+<h3 id="adding-custom-collections">Adding Custom Collections</h3>
+
+<p>Now let’s add an FAQ section to our website. Because the collection of questions might grow over time, we don’t want
+to maintain a long list of question in one file for each language (these might be hard to keep in sync). Rather we
+would like to have an actual collection of question-and-answer documents. These could then be displayed in one file
+and/or separately on subpages with fully qualified URLs (which might be good for SEO).</p>
+
+<p>First, we must add the custom collection to our <code>_config.yml</code>, otherwise no output will be generated:</p>
+<div class="highlight"><pre><code class="language-yaml"><span class="nn">...</span>
+
+<span class="l l-Scalar l-Scalar-Plain">collections</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">faq</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">output</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nn">...</span></code></pre></div>
+
+<p>Then we create folders for our FAQ collection:</p>
+
+<div class="highlight"><pre><code>mysite/
+├ _faq/
+├ _i18n/
+  ├ de/
+    ├ _faq/
+    └ ...
+  ├ en/
+    ├ _faq/
+    └ ...
+  └ ...
+└ ...
+</code></pre></div>
+
+<p>As always, the root <code>_faq</code> folder will contain the actual documents (with front matter) and the language subfolders
+the translations that are filled in.</p>
+
+<p>Let’s add a question to the collection:</p>
+
+<p><code>_faq/why-is-this-site-so-awesome.md</code></p>
+<div class="highlight"><pre><code>---
+layout: faq-entry
+title: faq.why-is-this-site-so-awesome
+
+namespace: faq.why-is-this-site-so-awesome
+permalink: /faq/why-is-this-site-so-awesome
+permalink_de: /faq/warum-is-diese-seite-so-toll
+---
+
+{% tf _faq/why-is-this-site-so-awesome.md %}
+</code></pre></div>
+
+<p><code>_i18n/de/_faq/why-is-this-site-so-awesome.md</code></p>
+<div class="highlight"><pre><code>Das ist schwierig zu erklären. Viele Leute finden unsere Seite einfach großartig.
+</code></pre></div>
+
+<p><code>_i18n/en/_faq/why-is-this-site-so-awesome.md</code></p>
+<div class="highlight"><pre><code>That is hard to explain. Many people just think our website is great.
+</code></pre></div>
+
+<p>Having such detailed front matter for each FAQ entry may seem like a lot of boilerplate. However, remember that it
+allows you to tweak every aspect of how the entry appears, including it’s permalink, for every language. I find that
+while the initial setup is a bit tedious, adding new content over time is much more convenient with a custom
+collection. Other use cases for custom collections are listing the team members of a company or recommending
+literature in a reading list.</p>
+
+<p>By default, the FAQ entries will be output to separate documents using the specified template and permalinks. To
+top it off, let’s add a dedicated FAQ page:</p>
+
+<p><code>faq.md</code></p>
+<div class="highlight"><pre><code>---
+layout: page
+title: pages.faq
+
+namespace: faq
+permalink: /frequent-questions/
+permalink_de: /haeufige-fragen/
+---
+
+{% for question in site.faq %}
+&lt;div&gt;
+    &lt;h4&gt;{% t {{ question.title  }} %}&lt;/h4&gt;
+    {{ question.content }}
+&lt;/div&gt;
+{% endfor %}
+</code></pre></div>
+
+<p>Voilà. Now you can access your FAQ both as a list at <code>www.example.com/de/haufige-fragen</code> and
+<code>www.example.com/en/frequent-questions/</code> as well the individual entries at their own permalink, e.g.
+<code>www.example.com/de/faq/warum-is-diese-seite-so-toll/</code> and <code>www.example.com/en/why-is-this-site-so-awesome/</code>.
+Note that we didn’t need to create a <code>faq.md</code> file in the language subfolders, because the root file simply outputs
+translated content in a loop.</p>
+
+<h3 id="social-sharing-with-opengraph-tags">Social Sharing with OpenGraph Tags</h3>
+
+<p>Our website is almost ready to be published. But what if people actually realize how awesome it is and want to share
+it on Facebook, LinkedIn, WhatsApp etc.? As you probably know, it’s possible to control the appearance of “sharing
+previews” of a website by means of <a href="http://ogp.me/">Open Graph meta tags</a>.</p>
+
+<p>For any content that resides in the language subfolders, this is easy - we just add a few lines to the header:</p>
+
+<p><code>index.html</code></p>
+<div class="highlight"><pre><code class="language-html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;{{ site.lang }}&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{% t site.description %}&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;keywords&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{% t site.keywords %}&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>{% t site.name %} - {% t site.tagline %}<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:title&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{% t site.og.title %}&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:image&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{% t site.og.image %}&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{% t site.og.description %}&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:url&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{{ site.baseurl }}{% if page.url %}{{ page.url }}{% endif %}&quot;</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:locale&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{% t site.og.locale %}&quot;</span><span class="p">/&gt;</span>    
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    ...
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code></pre></div>
+
+<p>Then we simply add the desired strings to our language YAML files:</p>
+
+<p><code>_i18n/de.yml</code></p>
+<div class="highlight"><pre><code class="language-yaml"><span class="l l-Scalar l-Scalar-Plain">site</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+  <span class="l l-Scalar l-Scalar-Plain">og</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Meine Beispiel-Webseite</span>
+    <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="s">&quot;http://www.example.com/assets/img/cool_1200x1200_image.png&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Diese Beispiel-Webseite wird Sie begeistern!</span>
+    <span class="l l-Scalar l-Scalar-Plain">locale</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">de_DE</span>
+
+<span class="nn">...</span></code></pre></div>
+
+<p><code>_i18n/en.yml</code></p>
+<div class="highlight"><pre><code class="language-yaml"><span class="l l-Scalar l-Scalar-Plain">site</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">...</span>
+  <span class="l l-Scalar l-Scalar-Plain">og</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">title</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">My Example Website</span>
+    <span class="l l-Scalar l-Scalar-Plain">image</span><span class="p p-Indicator">:</span> <span class="s">&quot;http://www.example.com/assets/img/cool_1200x1200_image.png&quot;</span>
+    <span class="l l-Scalar l-Scalar-Plain">description</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">This example website will amaze you!</span>
+    <span class="l l-Scalar l-Scalar-Plain">locale</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">de_DE</span>
+
+<span class="nn">...</span></code></pre></div>
+
+<p>Note:</p>
+<ul>
+  <li>Again, for a real website you should move the meta stuff into a <code>header.html</code> include file.</li>
+  <li>After you deploy your site, you can check whether Facebook picks up the correct info with the
+<a href="https://developers.facebook.com/tools/debug/">Sharing Debugger</a>.</li>
+  <li>Obviously you can refine the inclusion of <code>og:</code> tags in your page and post templates, enabling you to include
+specific images and descriptions for individual posts and pages via front matter.</li>
+</ul>
+
+<h3 id="a-small-flaw">A Small Flaw</h3>
+
+<p>Great - so now everything works, right? Almost. Unfortunately, there is small blemish with GitHub Pages that cannot
+be fixed. What happens if people share your main URL (<code>www.example.com</code>)? Facebook has specified a <a href="https://developers.facebook.com/docs/opengraph/guides/internationalization">redirect mechanism
+for this</a>.</p>
+
+<p>The basic idea is this: The main page (<code>index.html</code>) contains the <code>og:</code> tags for the default language (English in our
+case). However, it can also contain one or several <code>og:locale:alternate</code> tags to indicate that this page is available
+in other languages. So we would have</p>
+
+<div class="highlight"><pre><code class="language-html"><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:locale:alternate&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;de_DE&quot;</span> <span class="p">/&gt;</span></code></pre></div>
+
+<p>in our <code>index.html</code>. The Facebook crawler would (on the first visit to the site) fetch the default version (<code>en_US</code>),
+and then refetch the page with the German locale (<code>de_DE</code>), to get the the version preferred by users with a German
+browser, which would contain the German <code>og:tags</code>. To communicate that it is looking for the German version of the
+main page, the crawler sends the <code>X-Facebook-Locale</code> header and it also attaches the URL parameter <code>fb_locale</code> to the
+request URL.</p>
+
+<p>And this is where we are out of luck. Since GitHub Pages only serves flat files and we have no way to configure or
+react to parameters in the request header, we miss this signal. Javascript would possibly let us extract the URL
+parameter, but at that point it’s too late - the meta data is served to the crawler before any piece of Javascript
+has even been loaded. I wrote to GitHub support about this and they confirmed that there is no workaround for this
+problem at the moment:</p>
+
+<blockquote>
+  <p>“That is correct. GitHub Pages is not intended to be a fully configurable host, but I can definitely pass this along
+ as a feature request to the team. We don’t share our roadmap publicly, so I can’t say if or when it will be
+ implemented, but my guess is that it won’t be anytime soon.”</p>
+</blockquote>
+
+<p>So the best fallback at the moment is to put your default language <code>og:</code> tags <em>verbatim</em> into <code>base.html</code>. While this
+is definitely a drawback (German users will see the English description and title when sharing your site), I don’t
+think it’s a show stopper in practice. Whenever users share specific content (residing in one of the language
+subfolders) they see the correct info.</p>
+
+<h3 id="closing-thoughts">Closing Thoughts</h3>
+
+<p>Creating a properly internationalized website is a lot of work, regardless of which toolbox you use. Jekyll and
+GitHub Pages give you pretty much everything you need. If your requirements are similar to mine (every
+language in its subfolder, translated permalinks, custom collections etc.) you may find the modified plugin useful.
+Additionally you may benefit from some of the tips and tricks explained above. Last but not least, I would like to
+say a big “thank you” to Anthony Gaudino and all contributors for creating the original plugin, which is fantastic
+and made my life a whole lot easier.</p>
+
+
+            
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'klaasnotfound';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui horizontal inverted small gray divided item list">
+            
+            <div class="item"><a href="https://twitter.com/intent/follow?screen_name=klaasnotfound" target="_blank">
+                Follow me on<i class="twitter icon"></i></a></div>
+            <div class="item">&copy; 2017 klaasnotfound.com</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-77167666-2', 'auto');
+    ga('send', 'pageview', {
+        'page': '/2017/02/16/proper-multilingual-site-with-github-pages-and-jekyll/',
+        'title': 'Setting up a Proper Multilingual Site with GitHub Pages and Jekyll'
+    });
+</script>
+
+</body>
