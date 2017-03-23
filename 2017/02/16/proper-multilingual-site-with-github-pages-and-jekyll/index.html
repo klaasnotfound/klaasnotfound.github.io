@@ -383,7 +383,7 @@ plugin, so I didn’t want to override it. You can use it to insert translated l
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
     ...
     <span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>{{ site.languageNames[site.lang] }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;active&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span><span class="p">&gt;</span>{{ site.languageNames[site.lang] }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
         {% for lang in site.languageNames %}
         {% if lang[0] == site.lang %} {% continue %} {% endif %}
         {% if page.namespace %}
